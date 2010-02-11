@@ -1,0 +1,7 @@
+javac rmi/compute/Compute.java rmi/compute/Task.java
+jar cvf ./compute.jar rmi/compute/*.class
+
+javac -cp ./compute.jar rmi/engine/ComputeEngine.java
+
+javac -cp ./compute.jar rmi/client/ComputePi.java rmi/client/Pi.java
+cp rmi/client/Pi.class .
