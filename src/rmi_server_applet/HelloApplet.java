@@ -91,35 +91,32 @@ public class HelloApplet extends Applet {
 			System.out.println("HelloApplet exception: " + e.getMessage());
 			e.printStackTrace();
 		}
-		boolean flag = true;
 		try {
 			serverSocket = openSocket(port);
-//			while (flag) {
-				System.out.println("waiting for connection");
-				message += "\n\nwaiting for connection\n";
-				clientSocket = waitForConnection(serverSocket);
-				System.out.println("connection made");
-				message += "connection made\n";
-				
-				PrintWriter out = new PrintWriter(clientSocket
-						.getOutputStream(), true);
-				BufferedReader in = new BufferedReader(new InputStreamReader(
-						clientSocket.getInputStream()));
-				String inputLine, outputLine;
+			System.out.println("waiting for connection");
+			message += "\n\nwaiting for connection\n";
+			clientSocket = waitForConnection(serverSocket);
+			System.out.println("connection made");
+			message += "connection made\n";
 
-				while ((inputLine = in.readLine()) != null) {
-					System.out.println(inputLine);
-					message += inputLine + "\n";
-					if (inputLine.equals(""))
-						break;
-				}
+			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),
+					true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					clientSocket.getInputStream()));
+			String inputLine, outputLine;
 
-				String pageContent = "Request received.";
-				out.println(pageContent);
-				out.close();
-				in.close();
-				clientSocket.close();
-//			}
+			while ((inputLine = in.readLine()) != null) {
+				System.out.println(inputLine);
+				message += inputLine + "\n";
+				if (inputLine.equals(""))
+					break;
+			}
+
+			outputLine = "Request received.";
+			out.println(outputLine);
+			out.close();
+			in.close();
+			clientSocket.close();
 			serverSocket.close();
 		} catch (IOException e) {
 			System.out.println("IOEcxeption");
