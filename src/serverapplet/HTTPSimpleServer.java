@@ -1,12 +1,14 @@
 package serverapplet;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -28,20 +30,28 @@ public class HTTPSimpleServer {
 		    clientSocket = waitForConnection(serverSocket);
 		    System.out.println("connection made");
 		    
-		    //still need to check the request for the right path/file to load
-		    String pageContent = readFileAsString("static/pageWithApplet.html"); 
-		    
-	        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+		    	    
+		    OutputStream out = clientSocket.getOutputStream();
 	        BufferedReader in = new BufferedReader(new InputStreamReader(
 	                clientSocket.getInputStream()));
 	        String inputLine, outputLine;
 
-	        while ((inputLine = in.readLine()) != null) {
+	        for(int i = 0; (inputLine = in.readLine()) != null; i++) {
 	            System.out.println(inputLine);
+	            if(i == 0){
+	                String[] splitRequest = inputLine.split("\\s");
+	                byte[] content;
+	                if(splitRequest[1].equals("/")){
+	                    content = readFileAsBytes("static/index.html");
+	                } else {
+	                    content = readFileAsBytes("static"+splitRequest[1]);
+	                }
+	                out.write(content, 0, content.length);
+	            }
 	            if (inputLine.equals(""))
 	                break;
 	        }
-	        out.println(pageContent);
+	        
 	        out.close();
 	        in.close();
 	        clientSocket.close();
@@ -69,7 +79,7 @@ public class HTTPSimpleServer {
         }
 	}
 	
-	public String readFileAsString(String path){
+	public byte[] readFileAsBytes(String path){
         File f;
         try {
             //still need to check whether this works with .Jars
@@ -80,7 +90,7 @@ public class HTTPSimpleServer {
             }
         } catch (URISyntaxException e1) {
             System.err.println("File URI bad syntax: " + path);
-            return "";
+            return new byte[]{};
         }
         //System.out.println("reading: "+ f.getAbsolutePath());
         
@@ -95,7 +105,7 @@ public class HTTPSimpleServer {
                 
                 byte[] bytecodes = new byte[length];
                 in.readFully(bytecodes);
-                return new String(bytecodes);
+                return bytecodes;
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -104,6 +114,6 @@ public class HTTPSimpleServer {
                 e.printStackTrace();
             }            
         }
-        return "";
+        return new byte[]{};
     }
 }
