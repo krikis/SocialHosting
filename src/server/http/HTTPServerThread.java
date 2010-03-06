@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URISyntaxException;
 
@@ -29,59 +28,33 @@ public class HTTPServerThread extends Thread {
 		this.socket = socket;
 	}
 
+	/*
+	 * (non-Javadoc) Reads the request from the socket, opens the requested
+	 * file, compiles a response header and sends the response
+	 * 
+	 * @see java.lang.Thread#run()
+	 */
 	public void run() {
+		// read the request from the socket
 		HTTPRequest request = readSocket();
 		System.out.println(request);
-
-		byte[] content;
-        if(request.path().equals("/")){
-            content = readFileAsBytes("static/index.html");
-        } else {
-            content = readFileAsBytes("static"+request.path());
-        }
-        
+		// open the requested file
+		FileHandler file = new FileHandler(request.path());
+		// read as bytes
+		byte[] content = file.readAsBytes();
+		// compile the response header
+		HTTPResponse response = new HTTPResponse(file.serverStatus(),
+				file.mimeType(), Integer.toString(content.length));
+		System.out.println(response);
+		// send the response as bytes
 		try {
-		    out.write(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        closeSocket();
+			out.write(response.header().getBytes());
+			out.write(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		closeSocket();
 	}
-	
-	public byte[] readFileAsBytes(String path){
-        File f;
-        try {
-            //still need to check whether this works inside .Jars
-            if(this.getClass().getClassLoader().getResource(path) != null){
-                f = new File(this.getClass().getClassLoader().getResource(path).toURI());
-            } else {
-                f = new File(path);
-            }
-        } catch (URISyntaxException e1) {
-            System.err.println("File URI bad syntax: " + path);
-            return new byte[]{};
-        }
-        
-        int length = (int) (f.length());
-        if (length == 0) {
-            System.err.println("File length is zero: " + path);            
-        } else {
-            FileInputStream fin;
-            try {
-                fin = new FileInputStream(f);
-                DataInputStream in = new DataInputStream(fin);
-                
-                byte[] bytecodes = new byte[length];
-                in.readFully(bytecodes);
-                return bytecodes;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }            
-        }
-        return new byte[]{};
-    }
 
 	/**
 	 * Reads the HTTP request from the socket

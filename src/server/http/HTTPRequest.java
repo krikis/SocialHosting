@@ -4,11 +4,14 @@ import java.util.StringTokenizer;
 
 public class HTTPRequest {
 	
+	private String plainHeader;
+	
 	private String method;
 	
 	private String path;
 	
 	public HTTPRequest(String request) {
+		plainHeader = request;
 		StringTokenizer tokenizer = new StringTokenizer(request);
 		method = tokenizer.nextToken();
 		path = tokenizer.nextToken();
@@ -23,6 +26,6 @@ public class HTTPRequest {
 	}
 	
 	public String toString() {
-		return "HTTP METHOD: " + method + "\nHTTP REQUEST PATH: " + path + "\n";
+		return "HTTP METHOD: " + method + "\nHTTP REQUEST PATH: " + path + "\n" + "\n" + plainHeader;
 	}
 }
