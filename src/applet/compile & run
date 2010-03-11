@@ -1,18 +1,22 @@
-# create certificate
+# create certificate for applet
 keytool -genkey -alias applet
 keytool -selfcert -alias applet
 
-# run rmiregistry
+# start rmiregistry
 rmiregistry &
 
 # run rmi server
 java  -Djava.rmi.server.codebase=http://localhost/classes/  -Djava.security.policy=rmiapplet/policy  rmiapplet.HelloImpl
 
 # compile applet in 'src' folder
-javac -d ../static/server_applet/ ./applet/*.java
+cd src/
+javac -d ../www/ ./applet/*.java
 # stub in classes directory
 rmic -d ./ rmiapplet.HelloImpl
 
-# jar and sign applet in 'server_applet' directory
-jar cvf ./applet.jar ./applet/*
+# jar and sign applet in 'www' folder
+cd ../www/
+jar cvf ./applet.jar ./applet/* ./public/*
 jarsigner applet.jar applet
+
+
