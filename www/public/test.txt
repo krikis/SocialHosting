@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <jnlp href="java2d.jnlp">
+     <information>
+       <title>Java2D Demo</title>
+       <vendor>My Company, Inc.</vendor>
+       <offline-allowed />
+     </information>
+     <resources>
+       <j2se version="1.4+"
+             href="http://java.sun.com/products/autodl/j2se" />
+       <jar href="http://java.sun.com/products/plugin/1.5.0/demos/plugin/jfc/Java2D/Java2Demo.jar" main="true" />
+     </resources>
+     <applet-desc 
+         name="Java2D Demo"
+         main-class="java2d.Java2DemoApplet"
+         width="710"
+         height="540">
+     </applet-desc>
+ </jnlp>

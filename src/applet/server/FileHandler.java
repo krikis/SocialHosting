@@ -1,13 +1,17 @@
-package server.http;
+package applet.server;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.util.jar.JarFile;
 
-import applet.server.HTTPResponse;
+import applet.*;
 
 /**
  * This class implements reading a file from the file system and returning its
@@ -20,11 +24,12 @@ public class FileHandler {
 	// the path to the requested file
 	private String filePath;
 	// the server file root
-	private static String root = "www";
+	private static String root = "/public";
 	// the server status
 	private String status;
 	// the extension of the requested file
 	private String mime;
+	private ServerApplet applet;
 
 	/**
 	 * Constructs a {@link FileHandler} object given the relative path to the
@@ -34,7 +39,8 @@ public class FileHandler {
 	 *            the relative path to the requested file in the server file
 	 *            root
 	 */
-	public FileHandler(String path) {
+	public FileHandler(ServerApplet log, String path) {
+		applet = log;
 		filePath = root + path;
 		if (filePath.substring(filePath.length() - 1).equals("/"))
 			filePath += "index.html";
@@ -58,34 +64,35 @@ public class FileHandler {
 	 * @return the content of the requested file as a byte array.
 	 */
 	public byte[] readAsBytes() {
-		File f;
+		InputStream is;
 		try {
-			// still need to check whether this works inside .Jars
-			if (this.getClass().getClassLoader().getResource(filePath) != null) {
-				f = new File(this.getClass().getClassLoader().getResource(
-						filePath).toURI());
-			} else {
-				f = new File(filePath);
+			is = applet.getClass().getResourceAsStream(filePath);
+			if (is == null) {
+				status = HTTPResponse.NOT_FOUND; // set server status
+				return "\n".getBytes();
 			}
-		} catch (URISyntaxException e) {
-			System.err.println("File URI bad syntax: " + filePath);
-			return new byte[] {};
-		}
-
-		FileInputStream fin;
-		try {
-			fin = new FileInputStream(f);
-			DataInputStream in = new DataInputStream(fin);
-
-			byte[] bytecodes = new byte[(int) (f.length())];
-			in.readFully(bytecodes);
+			byte[] bytecode = new byte[1024];
+			int offset = 0;
+			int empty = bytecode.length;
+			int read = 0;
+			while (-1 != read) {
+				read = is.read(bytecode, offset, empty);
+				if (read >= empty) {
+					byte[] temp = new byte[bytecode.length * 2];
+					for (int index = 0; index < bytecode.length; index++) {
+						temp[index] = bytecode[index];
+					}
+					offset = bytecode.length;
+					empty = offset;
+					bytecode = temp;
+				} else {
+					break;
+				}
+			}
 			status = HTTPResponse.OK; // set server status
-			return bytecodes;
-		} catch (FileNotFoundException e) {
-			status = HTTPResponse.NOT_FOUND; // set server status
-			return "\n".getBytes();
-		} catch (IOException e) {
-			e.printStackTrace();
+			return bytecode;
+		} catch (Exception e) {
+			applet.reportError(e);
 		}
 		return new byte[] {};
 	}

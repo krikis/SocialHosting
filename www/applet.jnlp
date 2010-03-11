@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp href="applet.jnlp">
+    <information>
+      <title>Applet</title>
+      <vendor>Samuel Esposito & Jorn van de Beek</vendor>
+      <offline-allowed />
+    </information>
+    <resources>
+      <j2se version="1.6+"
+            href="http://java.sun.com/products/autodl/j2se" />
+      <jar href="applet.jar" main="true" />
+    </resources>
+    <applet-desc 
+        name="Applet"
+        main-class="applet.ServerApplet"
+        width="600"
+        height="300">
+    </applet-desc>
+</jnlp>
