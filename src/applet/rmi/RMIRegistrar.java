@@ -30,20 +30,20 @@ public class RMIRegistrar extends Thread {
 
 	public void testRMI() {
 
-//		String message = "test";
-//
-//		// "obj" is the identifier that we'll use to refer
-//		// to the remote object that implements the "Hello"
-//		// interface
-//		Hello obj = null;
-//		try {
-//			obj = (Hello) Naming.lookup("//" + applet.getCodeBase().getHost()
-//					+ "/HelloServer");
-//			message = obj.sayHello();
-//		} catch (Exception e) {
-//			applet.reportError(e);
-//		}
-//		applet.log(message);
+		// String message = "test";
+		//
+		// // "obj" is the identifier that we'll use to refer
+		// // to the remote object that implements the "Hello"
+		// // interface
+		// Hello obj = null;
+		// try {
+		// obj = (Hello) Naming.lookup("//" + applet.getCodeBase().getHost()
+		// + "/HelloServer");
+		// message = obj.sayHello();
+		// } catch (Exception e) {
+		// applet.reportError(e);
+		// }
+		// applet.log(message);
 		try {
 			register = (RMIRemoteRegistration) Naming
 					.lookup("//" + applet.getCodeBase().getHost()

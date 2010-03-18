@@ -36,8 +36,7 @@ public class ServerApplet extends JApplet implements ActionListener {
 		// Attach actions to buttons
 		startButton.addActionListener(this);
 		stopButton.addActionListener(this);
-		
-		
+
 	}
 
 	public void paint(Graphics g) {
@@ -47,22 +46,8 @@ public class ServerApplet extends JApplet implements ActionListener {
 		if (evt.getSource() == startButton) {
 			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
-//			String message = "test";
-//
-//			// "obj" is the identifier that we'll use to refer
-//			// to the remote object that implements the "Hello"
-//			// interface
-//			Hello obj = null;
-//			try {
-//				obj = (Hello) Naming.lookup("//" + getCodeBase().getHost()
-//						+ "/HelloServer");
-//				message = obj.sayHello();
-//			} catch (Exception e) {
-//				reportError(e);
-//			}
-//			log(message);
-			 server = new HTTPServer(this);
-			 server.start();
+			server = new HTTPServer(this);
+			server.start();
 		} else if (evt.getSource() == stopButton) {
 			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
