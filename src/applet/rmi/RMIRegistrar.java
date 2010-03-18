@@ -11,7 +11,7 @@ import applet.ServerApplet;
 
 import server.rmi.RMIRemoteRegistration;
 
-public class RMIRegistrar extends Thread {
+public class RMIRegistrar {
 
 	// The remote register where we subscribe as host
 	private RMIRemoteRegistration register = null;
@@ -22,75 +22,34 @@ public class RMIRegistrar extends Thread {
 		applet = log;
 	}
 
-	public void run() {
-		applet.log("test");
-		testRMI();
-		applet.log("test");
-	}
+	public void registerSocialHost() {
 
-	public void testRMI() {
-
-		// String message = "test";
-		//
-		// // "obj" is the identifier that we'll use to refer
-		// // to the remote object that implements the "Hello"
-		// // interface
-		// Hello obj = null;
-		// try {
-		// obj = (Hello) Naming.lookup("//" + applet.getCodeBase().getHost()
-		// + "/HelloServer");
-		// message = obj.sayHello();
-		// } catch (Exception e) {
-		// applet.reportError(e);
-		// }
-		// applet.log(message);
 		try {
 			register = (RMIRemoteRegistration) Naming
 					.lookup("//" + applet.getCodeBase().getHost()
 							+ "/SocialHostingRegistry");
 
 			register.registerSocialHost();
-			applet.log("success");
+			applet.log("Social host registered!");
 		} catch (Exception e) {
 			applet.reportError(e);
 		}
 	}
 
-	// public static String registryAddress = "localhost";
-	// private RMIRemoteRegistration RMIregistrationStub;
-	//	
-	// public void registerSocialhost(){
-	// Registry registry;
-	// try {
-	// registry = LocateRegistry.getRegistry(registryAddress);
-	//
-	// RMIregistrationStub = (RMIRemoteRegistration)
-	// registry.lookup(RMIServer.RMIServerName);
-	// if(RMIregistrationStub.registerSocialHost()){
-	// System.out.println("Socialhost registration successful");
-	// return;
-	// }
-	// } catch (RemoteException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (NotBoundException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// System.err.println("Socialhost registration failed");
-	// }
-	//	
-	// public void deregisterSocialhost(){
-	// try {
-	// if(RMIregistrationStub.deregisterSocialHost()){
-	// System.out.println("Socialhost deregistration successful");
-	// return;
-	// }
-	// } catch (RemoteException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// System.err.println("Socialhost deregistration failed");
-	// }
+	public void deregisterSocialHost() {
+
+		try {
+			register = (RMIRemoteRegistration) Naming
+					.lookup("//" + applet.getCodeBase().getHost()
+							+ "/SocialHostingRegistry");
+
+			register.deregisterSocialHost();
+			applet.log("Social host deregistered!");
+		} catch (Exception e) {
+			applet.reportError(e);
+		}
+	}
+
+
 
 }

@@ -18,6 +18,7 @@ public class HTTPServer extends Thread {
 	private ServerSocket serverSocket = null;
 	private int port;
 	private ServerApplet applet;
+	private RMIRegistrar registrar;
 
 	/**
 	 * Creates a new {@link HTTPServer} object
@@ -25,6 +26,7 @@ public class HTTPServer extends Thread {
 	public HTTPServer(ServerApplet log) {
 		port = 5555;
 		applet = log;
+		registrar = new RMIRegistrar(log);
 	}
 
 	/**
@@ -35,9 +37,8 @@ public class HTTPServer extends Thread {
 		try {
 			serverSocket = new ServerSocket(port);
 			applet.log("Starting HTTP server on port " + port + "...");
-			// TODO: do rmi request here
-			RMIRegistrar registrar = new RMIRegistrar(applet);
-			registrar.start();
+			// RMI request to register host			
+			registrar.registerSocialHost();
 			applet.setServerStarted();
 			applet.log("HTTP Server successfully started!");
 		} catch (IOException e) {
@@ -65,6 +66,8 @@ public class HTTPServer extends Thread {
 	public void stopServer() {
 		listening = false;
 		if (!serverSocket.isClosed()) {
+			// RMI request to deregister host			
+			registrar.deregisterSocialHost();
 			applet.log("Stopping HTTP server on port " + port + "...");
 			try {
 				serverSocket.close();
