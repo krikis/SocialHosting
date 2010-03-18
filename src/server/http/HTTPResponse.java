@@ -12,12 +12,13 @@ import java.util.TimeZone;
  */
 public class HTTPResponse {
 	// possible http response codes
-	public static String OK = "200 OK";
-	public static String NOT_FOUND = "404 Not Found";
+	public static final String OK = "200 OK";
+	public static final String NOT_FOUND = "404 Not Found";
 	// contains possible content types
-	public static String JAR_MIME = "application/x-java-archive";
-	public static String JNLP_MIME = "application/x-java-jnlp-file";
-	public static String HTML_MIME = "text/html";
+	public static final String JAR_MIME = "application/x-java-archive";
+	public static final String JNLP_MIME = "application/x-java-jnlp-file";
+	public static final String CLASS_MIME = "application/java-vm";
+	public static final String HTML_MIME = "text/html";
 	// the fully compiled header
 	private String header;
 	// defines http protocol version
@@ -54,6 +55,7 @@ public class HTTPResponse {
 
 	/**
 	 * Returns the compiled HTTP response header
+	 * 
 	 * @return the compiled HTTP response header
 	 */
 	public String header() {
@@ -85,8 +87,8 @@ public class HTTPResponse {
 		header += "Content-Length: " + contentLength + "\n";
 		header += "\n";
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return header;
 	}
 

@@ -8,20 +8,20 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class HTTPClient {
-	
+
 	// Variables for handling http content-length
 	public static int content_length = 0;
 	public static int byte_count = 0;
 	public static boolean body_section = false;
-	
+
 	public static void main(String[] args) throws IOException {
 
 		Socket kkSocket = null;
 		PrintWriter out = null;
 		BufferedReader in = null;
-		String host = "www.google.nl";
+		String host = "localhost";
 		int port = 80;
-		String path = "/";
+		String path = "/classes/server/rmi/RMIRemoteRegistration.class";
 
 		try {
 			kkSocket = new Socket(host, port);
@@ -54,9 +54,8 @@ public class HTTPClient {
 		// Send http request
 		out.println(http_request);
 
-
-
-		// Receive http response, wait for server to close connection or quit if body is complete
+		// Receive http response, wait for server to close connection or quit if
+		// body is complete
 		while ((http_response = in.readLine()) != null) {
 			System.out.println(http_response);
 			// quit if body is complete
@@ -71,9 +70,9 @@ public class HTTPClient {
 		kkSocket.close();
 	}
 
-	
 	/**
-	 * This method handles the transmission of the http response body based on the content-length if given.
+	 * This method handles the transmission of the http response body based on
+	 * the content-length if given.
 	 * 
 	 * @param http_response
 	 * @param content_length

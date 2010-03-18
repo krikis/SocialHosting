@@ -1,28 +1,23 @@
 package example;
+
 // Copyright (C) Bill Clagett 1997.
 import java.util.*;
 
-class ScannerThread extends Thread implements Runnable
-{
+class ScannerThread extends Thread implements Runnable {
 	PortFactory _ports = null;
 
-	public ScannerThread(PortFactory ports)
-	{
+	public ScannerThread(PortFactory ports) {
 		_ports = ports;
 	}
-	
-	public void run()
-	{
+
+	public void run() {
 		Port port = null;
 		boolean quit = false;
 
-		while (!quit)
-		{
+		while (!quit) {
 			port = null;
-			synchronized(_ports)
-			{
-				if (!_ports.hasMoreElements())
-				{
+			synchronized (_ports) {
+				if (!_ports.hasMoreElements()) {
 					quit = true;
 					return;
 				}

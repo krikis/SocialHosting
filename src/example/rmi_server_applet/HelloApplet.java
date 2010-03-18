@@ -55,7 +55,7 @@ public class HelloApplet extends Applet {
 
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
-	int port = 4444;
+	int port = 6666;
 
 	ServerSocket openSocket(int port) {
 		try {

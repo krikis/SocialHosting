@@ -1,0 +1,4 @@
+cd src/
+jar cvf /Library/WebServer/Documents/hello_applet.jar examples/hello/*.class
+jarsigner /Library/WebServer/Documents/hello_applet.jar applet
+

@@ -3,10 +3,14 @@ package applet;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.jar.*;
-import java.util.zip.ZipEntry;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+
 import javax.swing.JApplet;
+
+import example.rmi_server_applet.Hello;
+
+import server.rmi.RMIRemoteRegistration;
 
 import applet.server.*;
 
@@ -14,12 +18,12 @@ public class ServerApplet extends JApplet implements ActionListener {
 	private Button startButton;
 	private Button stopButton;
 	private TextArea textArea;
-	private String serverLog = "";
 	private HTTPServer server = null;
 
 	public void init() {
 		// Set the layout
 		setLayout(new FlowLayout());
+		setBackground(Color.WHITE);
 		startButton = new Button("Start Server");
 		stopButton = new Button("Stop Server");
 		stopButton.setEnabled(false);
@@ -32,6 +36,8 @@ public class ServerApplet extends JApplet implements ActionListener {
 		// Attach actions to buttons
 		startButton.addActionListener(this);
 		stopButton.addActionListener(this);
+		
+		
 	}
 
 	public void paint(Graphics g) {
@@ -40,22 +46,45 @@ public class ServerApplet extends JApplet implements ActionListener {
 	public void actionPerformed(ActionEvent evt) {
 		if (evt.getSource() == startButton) {
 			startButton.setEnabled(false);
-			stopButton.setEnabled(true);
-			server = new HTTPServer(this);
-			server.start();
+			stopButton.setEnabled(false);
+//			String message = "test";
+//
+//			// "obj" is the identifier that we'll use to refer
+//			// to the remote object that implements the "Hello"
+//			// interface
+//			Hello obj = null;
+//			try {
+//				obj = (Hello) Naming.lookup("//" + getCodeBase().getHost()
+//						+ "/HelloServer");
+//				message = obj.sayHello();
+//			} catch (Exception e) {
+//				reportError(e);
+//			}
+//			log(message);
+			 server = new HTTPServer(this);
+			 server.start();
 		} else if (evt.getSource() == stopButton) {
-			startButton.setEnabled(true);
+			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
 			server.stopServer();
 		}
 	}
-	
+
+	public void setServerStarted() {
+		startButton.setEnabled(false);
+		stopButton.setEnabled(true);
+	}
+
+	public void setServerStopped() {
+		startButton.setEnabled(true);
+		stopButton.setEnabled(false);
+	}
+
 	public void log(String text) {
 		textArea.append(text + "\n");
 		repaint();
 	}
-	
-	
+
 	public void reportError(Exception e) {
 		log(e.getMessage());
 		log(e.getClass().toString());

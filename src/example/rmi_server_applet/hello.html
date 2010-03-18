@@ -1,11 +1,14 @@
-<HTML> 
-<title>Hello World</title> 
-<center> <h1>Hello World</h1> </center> 
-
-The message from the HelloServer is: 
-<p> 
-<applet codebase="classes/" 
-        code="rmiapplet.HelloApplet" 
-        width=500 height=120> 
-</applet> 
-</HTML>
+<html>
+  <head>
+    <title>SocialHosting Test Page</title>
+     <script src="http://www.java.com/js/deployJava.js"></script>
+  </head>
+<body>
+    <h3>Hello World!</h3>
+    <script> 
+        var attributes = {code:'example.rmi_server_applet.HelloApplet.class', archive: 'HelloApplet.jar', width:500, height:120} ; 
+        var parameters = {jnlp_href: 'HelloApplet.jnlp'} ; 
+        deployJava.runApplet(attributes, parameters, '1.6'); 
+    </script>
+</body>
+</html>

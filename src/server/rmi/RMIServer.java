@@ -1,5 +1,7 @@
-package applet.server;
+package server.rmi;
 
+import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -8,69 +10,62 @@ import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
 
+public class RMIServer extends UnicastRemoteObject implements
+		RMIRemoteRegistration {
 
-public class RMIServer implements RMIRemoteRegistration{
-	
-	public static String RMIServerName = "SocialhostingRegistry";
-	
+	public static String RMIServerName = "SocialHostingRegistry";
+
 	Vector<String> socialHostIPs = new Vector<String>();
-	
-	public static void main(String[] args){		
-		RMIServer server = new RMIServer();
-		
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        
-		while(server.socialHostIPs.isEmpty()){
-			try {
-				Thread.sleep(1000);				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
+
+	RMIServer() throws RemoteException {
+		super();
 	}
-	
-	RMIServer(){
-		try {
-			RMIRemoteRegistration stub = (RMIRemoteRegistration) UnicastRemoteObject.exportObject(this, 0);
-            Registry registry = LocateRegistry.getRegistry();
-            registry.rebind(RMIServerName, stub);
-		} catch (RemoteException e) {
-			System.err.println("Failed to create or bind RMI");
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public boolean registerSocialHost() throws RemoteException{
+
+	public boolean registerSocialHost() throws RemoteException {
 		try {
 			socialHostIPs.add(RemoteServer.getClientHost());
-			System.out.println("Socialhost registered: " + RemoteServer.getClientHost());
-			//Registration succeeded
+			System.out.println("Socialhost registered: "
+					+ RemoteServer.getClientHost());
+			// Registration succeeded
 			return true;
 		} catch (ServerNotActiveException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		//Registration failed
+		// Registration failed
 		return false;
 	}
 
-	@Override
 	public boolean deregisterSocialHost() throws RemoteException {
 		try {
 			socialHostIPs.remove(RemoteServer.getClientHost());
-			System.out.println("Socialhost deregistered: " + RemoteServer.getClientHost());
-			//Deregistration succeeded
+			System.out.println("Socialhost deregistered: "
+					+ RemoteServer.getClientHost());
+			// Deregistration succeeded
 			return true;
 		} catch (ServerNotActiveException e) {
 			e.printStackTrace();
 		}
-		//Deregistration failed
+		// Deregistration failed
 		return false;
+	}
+
+	public static void main(String[] args) {
+
+		// Create and install a security manager
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new RMISecurityManager());
+		}
+
+		try {
+			RMIServer server = new RMIServer();
+			// Bind RMI server instance
+			Naming.rebind(RMIServerName, server);
+			System.out.println("RMI server bound in registry");
+		} catch (Exception e) {
+			System.out.println("RMI server error: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }

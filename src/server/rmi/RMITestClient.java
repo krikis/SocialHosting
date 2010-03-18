@@ -1,4 +1,4 @@
-package applet.server;
+package server.rmi;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

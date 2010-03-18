@@ -43,8 +43,8 @@ public class HTTPServerThread extends Thread {
 		// read as bytes
 		byte[] content = file.readAsBytes();
 		// compile the response header
-		HTTPResponse response = new HTTPResponse(file.serverStatus(),
-				file.mimeType(), Integer.toString(content.length));
+		HTTPResponse response = new HTTPResponse(file.serverStatus(), file
+				.mimeType(), Integer.toString(content.length));
 		System.out.println(response);
 		// send the response as bytes
 		try {

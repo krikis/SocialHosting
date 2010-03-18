@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.jar.JarFile;
 
+import server.http.HTTPResponse;
+
 import applet.*;
 
 /**
@@ -52,7 +54,9 @@ public class FileHandler {
 			mime = HTTPResponse.JAR_MIME;
 		else if (filePath.substring(filePath.length() - 5).equals(".jnlp"))
 			mime = HTTPResponse.JNLP_MIME;
-		else 
+		else if (filePath.substring(filePath.length() - 6).equals(".class"))
+			mime = HTTPResponse.CLASS_MIME;
+		else
 			mime = HTTPResponse.HTML_MIME;
 	}
 

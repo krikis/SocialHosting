@@ -1,0 +1,12 @@
+#rmiregistry &
+cd src/
+javac  -d ../www/classes/  ./server/rmi/*.java
+javac  -d ../www/  ./server/rmi/*.java
+javac  -d ./  server/rmi/*.java
+javac  -d ../www/  ./applet/*.java
+cd ../www/
+rmic -d ./ server.rmi.RMIServer
+jar cvf ./applet.jar ./applet/* ./public/* ./server/rmi/*
+jarsigner ./applet.jar applet
+cd ../src/
+java  -Djava.rmi.server.codebase=http://localhost:4444/applet.jar  -Djava.security.policy=server/rmi/policy  server.rmi.RMIServer

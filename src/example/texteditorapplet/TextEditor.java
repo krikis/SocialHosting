@@ -1,4 +1,5 @@
 package example.texteditorapplet;
+
 /*
  * Copyright (c) 2009 Sun Microsystems, Inc.  All rights reserved.
  *
@@ -35,50 +36,50 @@ import java.awt.Dimension;
 import java.awt.event.*;
 
 public class TextEditor extends JPanel implements ActionListener {
-    private JTextArea textArea = null;
-    private JButton openButton = null;
-    private JButton saveButton = null;
-    private JButton saveAsButton = null;
+	private JTextArea textArea = null;
+	private JButton openButton = null;
+	private JButton saveButton = null;
+	private JButton saveAsButton = null;
 
-    public TextEditor() {
-         createTextArea();
-         createButtons();
-    }
+	public TextEditor() {
+		createTextArea();
+		createButtons();
+	}
 
-    private void createTextArea() {
-        textArea = new JTextArea("some text");
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        JScrollPane areaScrollPane = new JScrollPane(textArea);
-        areaScrollPane.setVerticalScrollBarPolicy(
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        areaScrollPane.setPreferredSize(new Dimension(450, 250));
-        add(areaScrollPane);
-    }
+	private void createTextArea() {
+		textArea = new JTextArea("some text");
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		JScrollPane areaScrollPane = new JScrollPane(textArea);
+		areaScrollPane
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		areaScrollPane.setPreferredSize(new Dimension(450, 250));
+		add(areaScrollPane);
+	}
 
-    private void createButtons() {
-        openButton = new JButton("Open");
-        openButton.addActionListener(this);
-        add(openButton);
+	private void createButtons() {
+		openButton = new JButton("Open");
+		openButton.addActionListener(this);
+		add(openButton);
 
-        saveButton = new JButton("Save");
-        saveButton.addActionListener(this);
-        add(saveButton);
+		saveButton = new JButton("Save");
+		saveButton.addActionListener(this);
+		add(saveButton);
 
-        saveAsButton = new JButton("SaveAs");
-        saveAsButton.addActionListener(this);
-        add(saveAsButton);
-    }
+		saveAsButton = new JButton("SaveAs");
+		saveAsButton.addActionListener(this);
+		add(saveAsButton);
+	}
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == openButton) {
-            textArea.setText(FileHandler.open());
-        } else if (e.getSource() == saveButton) {
-            FileHandler.save(textArea.getText());
-        } else if (e.getSource() == saveAsButton) {
-            FileHandler.saveAs(textArea.getText());
-        }
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == openButton) {
+			textArea.setText(FileHandler.open());
+		} else if (e.getSource() == saveButton) {
+			FileHandler.save(textArea.getText());
+		} else if (e.getSource() == saveAsButton) {
+			FileHandler.saveAs(textArea.getText());
+		}
 
-    }
+	}
 
 }

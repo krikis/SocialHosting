@@ -27,7 +27,7 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
+ */
 
 package example.rmi.client;
 
@@ -38,20 +38,20 @@ import java.math.BigDecimal;
 import example.rmi.compute.Compute;
 
 public class ComputePi {
-    public static void main(String args[]) {
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        try {
-            String name = "Compute";
-            Registry registry = LocateRegistry.getRegistry(args[0]);
-            Compute comp = (Compute) registry.lookup(name);
-            Pi task = new Pi(Integer.parseInt(args[1]));
-            BigDecimal pi = comp.executeTask(task);
-            System.out.println(pi);
-        } catch (Exception e) {
-            System.err.println("ComputePi exception:");
-            e.printStackTrace();
-        }
-    }    
+	public static void main(String args[]) {
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
+		try {
+			String name = "Compute";
+			Registry registry = LocateRegistry.getRegistry(args[0]);
+			Compute comp = (Compute) registry.lookup(name);
+			Pi task = new Pi(Integer.parseInt(args[1]));
+			BigDecimal pi = comp.executeTask(task);
+			System.out.println(pi);
+		} catch (Exception e) {
+			System.err.println("ComputePi exception:");
+			e.printStackTrace();
+		}
+	}
 }

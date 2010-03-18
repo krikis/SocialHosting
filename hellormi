@@ -1,0 +1,13 @@
+# run rmi server
+cd src/
+javac  -d ../www/classes/  example/rmi_server_applet/*.java
+javac  -d ./  example/rmi_server_applet/*.java
+cd ../www/classes/
+rmic -d ./ example.rmi_server_applet.HelloImpl
+jar cvf ../HelloApplet.jar example/rmi_server_applet/*.class
+rm -r example/
+cd ../
+jarsigner ./HelloApplet.jar applet
+cd ../src
+java  -Djava.rmi.server.codebase=http://localhost:4444/HelloApplet.jar  -Djava.security.policy=example/rmi_server_applet/policy  example.rmi_server_applet.HelloImpl
+

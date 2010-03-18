@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import applet.server.HTTPResponse;
-
 /**
  * This class implements reading a file from the file system and returning its
  * contents as an array of bytes.
@@ -46,7 +44,9 @@ public class FileHandler {
 			mime = HTTPResponse.JAR_MIME;
 		else if (filePath.substring(filePath.length() - 5).equals(".jnlp"))
 			mime = HTTPResponse.JNLP_MIME;
-		else 
+		else if (filePath.substring(filePath.length() - 6).equals(".class"))
+			mime = HTTPResponse.CLASS_MIME;
+		else
 			mime = HTTPResponse.HTML_MIME;
 	}
 

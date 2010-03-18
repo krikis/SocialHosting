@@ -1,6 +1,8 @@
 package applet.server;
 
 import applet.*;
+import applet.rmi.RMIRegistrar;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -32,10 +34,15 @@ public class HTTPServer extends Thread {
 		// Try to open socket on given port
 		try {
 			serverSocket = new ServerSocket(port);
-			applet.log("Server started on port " + port + "...");
+			applet.log("Starting HTTP server on port " + port + "...");
 			// TODO: do rmi request here
+			RMIRegistrar registrar = new RMIRegistrar(applet);
+			registrar.start();
+			applet.setServerStarted();
+			applet.log("HTTP Server successfully started!");
 		} catch (IOException e) {
 			applet.log("Could not listen on port: " + port + ".");
+			applet.setServerStopped();
 			return;
 		}
 
@@ -44,7 +51,8 @@ public class HTTPServer extends Thread {
 			while (listening)
 				new HTTPServerThread(applet, serverSocket.accept()).start();
 		} catch (IOException e) {
-			applet.log("Server successfully halted!");
+			applet.setServerStopped();
+			applet.log("HTTP Server successfully halted!");
 		}
 
 		// Close the socket when the server is stopped
@@ -57,7 +65,7 @@ public class HTTPServer extends Thread {
 	public void stopServer() {
 		listening = false;
 		if (!serverSocket.isClosed()) {
-			applet.log("Stopping server on port " + port + "...");
+			applet.log("Stopping HTTP server on port " + port + "...");
 			try {
 				serverSocket.close();
 			} catch (IOException e) {

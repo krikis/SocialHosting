@@ -1,0 +1,14 @@
+# 1. run rmiregistry
+rmiregistry &
+
+# 2. compile and run rmi server in 'src' directory
+cd src/
+javac  -d ../www/classes/  server/rmi/RMIRemoteRegistration.java
+javac  -d ./  server/rmi/*.java
+java  -Djava.rmi.server.codebase=http://localhost:4444/classes/  -Djava.security.policy=server/rmi/policy  server.rmi.RMIServer
+
+javac  -d /Library/Webserver/Documents/classes/  server/rmi/*.java
+cd /Library/Webserver/Documents/classes/
+rmic -d ./ server.rmi.RMIServer
+java  -Djava.rmi.server.codebase=http://localhost/classes/  -Djava.security.policy=server/rmi/policy  server.rmi.RMIServer
+
