@@ -1,6 +1,0 @@
-cd src/
-javac -d ../www/ ./applet/*.java
-cd ../www/
-jar cvf ./applet.jar ./applet/* ./public/* ./server/rmi/*
-jarsigner ./applet.jar applet
-
