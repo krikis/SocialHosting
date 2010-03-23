@@ -1,24 +1,21 @@
 package applet;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-
 import javax.swing.JApplet;
 
-import example.rmi_server_applet.Hello;
-
 import server.rmi.RMIRemoteRegistration;
-
 import applet.server.*;
 
-public class ServerApplet extends JApplet implements ActionListener {
+public class ServerApplet extends JApplet implements ActionListener,
+		KeyListener {
 	// Layout elements for the applet
 	private Button startButton;
 	private Button stopButton;
 	private TextField textField;
+	private int textFieldSize;
 	private TextArea textArea;
 	private Label label;
 	// HTTP server running in the applet
@@ -35,7 +32,8 @@ public class ServerApplet extends JApplet implements ActionListener {
 		stopButton.setEnabled(false);
 		label = new Label();
 		label.setText("Port: ");
-		textField = new TextField(6);
+		textField = new TextField(5);
+		textFieldSize = 5;
 		textField.setText(port);
 		textArea = new TextArea("", 10, 60, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		textArea.setEditable(false);
@@ -45,11 +43,11 @@ public class ServerApplet extends JApplet implements ActionListener {
 		add(stopButton);
 		add(textArea);
 
-		// Attach actions to buttons
+		// Set eventhandlers
+		textField.addKeyListener(this);
 		textField.addActionListener(this);
 		startButton.addActionListener(this);
 		stopButton.addActionListener(this);
-
 	}
 
 	public void paint(Graphics g) {
@@ -75,6 +73,29 @@ public class ServerApplet extends JApplet implements ActionListener {
 				server.start();
 			}
 		}
+	}
+
+	public void keyTyped(KeyEvent evt) {
+	}
+
+	public void keyPressed(KeyEvent evt) {
+		if (evt.getSource() == textField) {
+			int key = evt.getKeyCode();
+			char character = evt.getKeyChar();
+			// skip control characters like return, tab, delete and backspace
+			if (Character.isISOControl(character))
+				return;
+			// check input length
+			else if (textField.getText().length() >= textFieldSize
+					&& textField.getSelectionStart() == textField.getSelectionEnd())
+				evt.consume();
+			// check input content
+			else if (character < '0' || character > '9')
+				evt.consume();
+		}
+	}
+
+	public void keyReleased(KeyEvent evt) {
 	}
 
 	public void setServerStarted() {

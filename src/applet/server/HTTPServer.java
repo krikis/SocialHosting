@@ -16,7 +16,8 @@ import java.net.ServerSocket;
 public class HTTPServer extends Thread {
 	private boolean listening = true;
 	private ServerSocket serverSocket = null;
-	private int port;
+	private String portnr;
+	private int port = 0;
 	private ServerApplet applet;
 	private RMIRegistrar registrar;
 
@@ -24,11 +25,7 @@ public class HTTPServer extends Thread {
 	 * Creates a new {@link HTTPServer} object
 	 */
 	public HTTPServer(ServerApplet log, String server_port) {
-		try {
-			port = Integer.parseInt(server_port);
-		} catch (Exception e) {
-			applet.reportError(e);
-		}
+		portnr = server_port;
 		applet = log;
 		registrar = new RMIRegistrar(log);
 	}
@@ -37,10 +34,15 @@ public class HTTPServer extends Thread {
 	 * Starts the HTTP server when a valid port is given
 	 */
 	public void run() {
-		// Check whether port is in valid range
+		// Check whether port is valid
+		try {
+			port = Integer.parseInt(portnr);
+		} catch (Exception e) {
+		}
 		if (port != 80 && (port < 1024 || port > 49151)) {
 			applet.log("Invalid port number!");
-			applet.log("Provide either 80 or a number between 1024 and 49151.");
+			applet
+					.log("Provide either 80 or a number between 1024 and 49151.\n");
 			applet.setServerStopped();
 		} else {
 			// Start the server
