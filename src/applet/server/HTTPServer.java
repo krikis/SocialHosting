@@ -23,24 +23,41 @@ public class HTTPServer extends Thread {
 	/**
 	 * Creates a new {@link HTTPServer} object
 	 */
-	public HTTPServer(ServerApplet log) {
-		port = 5555;
+	public HTTPServer(ServerApplet log, String server_port) {
+		try {
+			port = Integer.parseInt(server_port);
+		} catch (Exception e) {
+			applet.reportError(e);
+		}
 		applet = log;
 		registrar = new RMIRegistrar(log);
 	}
 
 	/**
-	 * Starts the HTTP server
+	 * Starts the HTTP server when a valid port is given
 	 */
 	public void run() {
+		// Check whether port is in valid range
+		if (port != 80 && (port < 1024 || port > 49151)) {
+			applet.log("Invalid port number!");
+			applet.log("Provide either 80 or a number between 1024 and 49151.");
+			applet.setServerStopped();
+		} else {
+			// Start the server
+			startServer();
+		}
+	}
+
+	// Starts the HTTP server
+	private void startServer() {
 		// Try to open socket on given port
 		try {
 			serverSocket = new ServerSocket(port);
 			applet.log("Starting HTTP server on port " + port + "...");
-			// RMI request to register host			
+			// RMI request to register host
 			registrar.registerSocialHost(port);
 			applet.setServerStarted();
-			applet.log("HTTP Server successfully started!");
+			applet.log("HTTP Server successfully started!\n");
 		} catch (IOException e) {
 			applet.log("Could not listen on port: " + port + ".");
 			applet.setServerStopped();
@@ -53,7 +70,7 @@ public class HTTPServer extends Thread {
 				new HTTPServerThread(applet, serverSocket.accept()).start();
 		} catch (IOException e) {
 			applet.setServerStopped();
-			applet.log("HTTP Server successfully halted!");
+			applet.log("HTTP Server successfully halted!\n");
 		}
 
 		// Close the socket when the server is stopped
@@ -66,7 +83,7 @@ public class HTTPServer extends Thread {
 	public void stopServer() {
 		listening = false;
 		if (!serverSocket.isClosed()) {
-			// RMI request to deregister host			
+			// RMI request to deregister host
 			registrar.deregisterSocialHost(port);
 			applet.log("Stopping HTTP server on port " + port + "...");
 			try {

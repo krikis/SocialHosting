@@ -20,11 +20,12 @@ public class ServerApplet extends JApplet implements ActionListener {
 	private Button stopButton;
 	private TextField textField;
 	private TextArea textArea;
+	private Label label;
 	// HTTP server running in the applet
 	private HTTPServer server = null;
 	// Default server port
-	private int port = 5555;
-	
+	private String port = "5555";
+
 	public void init() {
 		// Set the layout
 		setLayout(new FlowLayout());
@@ -32,15 +33,20 @@ public class ServerApplet extends JApplet implements ActionListener {
 		startButton = new Button("Start Server");
 		stopButton = new Button("Stop Server");
 		stopButton.setEnabled(false);
-		textField = new TextField();
-		textField.setText(Integer.toString(port));
+		label = new Label();
+		label.setText("Port: ");
+		textField = new TextField(6);
+		textField.setText(port);
 		textArea = new TextArea("", 10, 60, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		textArea.setEditable(false);
+		add(label);
+		add(textField);
 		add(startButton);
 		add(stopButton);
 		add(textArea);
 
 		// Attach actions to buttons
+		textField.addActionListener(this);
 		startButton.addActionListener(this);
 		stopButton.addActionListener(this);
 
@@ -51,14 +57,23 @@ public class ServerApplet extends JApplet implements ActionListener {
 
 	public void actionPerformed(ActionEvent evt) {
 		if (evt.getSource() == startButton) {
+			port = textField.getText();
 			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
-			server = new HTTPServer(this);
+			server = new HTTPServer(this, port);
 			server.start();
 		} else if (evt.getSource() == stopButton) {
 			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
 			server.stopServer();
+		} else if (evt.getSource() == textField) {
+			if (startButton.isEnabled()){
+			port = textField.getText();
+			startButton.setEnabled(false);
+			stopButton.setEnabled(false);
+			server = new HTTPServer(this, port);
+			server.start();
+		}
 		}
 	}
 
