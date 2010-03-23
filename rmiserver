@@ -1,12 +1,38 @@
-#rmiregistry &
+# run rmiregistry in console with CLASSPATH not containing RMI classes
+# export CLASSPATH=.
+# rmiregistry
+
+# go to 'src' directory in project
 cd src/
+# compile rmi-server
 javac  -d ./  ./server/rmi/*.java
+# create stubs for rmi-server
 rmic  -d ./ server.rmi.RMIServer
-javac  -d ../www/  ./server/rmi/*.java
-javac  -d ../www/  ./applet/*.java
+
+# compile applet to 'jarfile' directory
+javac  -d ../jarfile/  ./applet/*.java
+# compile rmi-server to 'jarfile' directory for applet jar
+javac  -d ../jarfile/  ./server/rmi/*.java
+# go to 'jarfile' directory
+cd ../jarfile/
+# create stubs for rmi-server
+rmic  -d ./ server.rmi.RMIServer
+
+# generate jar file for applet and put it in HTTP server public 'www' directory
+# this jar file contains:
+# - the applet code
+# - the rmi-server code (because of the signing)
+# - the public directory for the applet HTTP server
+jar cvf ../www/applet.jar ./applet/* ./server/rmi/* ./public/*
+
+# go to HTTP server public 'www' directory
 cd ../www/
-rmic  -d ./ server.rmi.RMIServer
-jar cvf ./applet.jar ./applet/* ./public/* ./server/rmi/*
+# sign the applet using the selfsigned 'applet' certificate 
+# keytool -genkey -alias applet
+# keytool -selfcert -alias applet
 jarsigner ./applet.jar applet
+
+# go back to 'src' directory
 cd ../src/
+# fire up the rmi-server
 java  -Djava.rmi.server.codebase=http://localhost:4444/applet.jar  -Djava.security.policy=server/rmi/policy  server.rmi.RMIServer
