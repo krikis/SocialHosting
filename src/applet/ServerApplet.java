@@ -67,13 +67,13 @@ public class ServerApplet extends JApplet implements ActionListener {
 			stopButton.setEnabled(false);
 			server.stopServer();
 		} else if (evt.getSource() == textField) {
-			if (startButton.isEnabled()){
-			port = textField.getText();
-			startButton.setEnabled(false);
-			stopButton.setEnabled(false);
-			server = new HTTPServer(this, port);
-			server.start();
-		}
+			if (startButton.isEnabled()) {
+				port = textField.getText();
+				startButton.setEnabled(false);
+				stopButton.setEnabled(false);
+				server = new HTTPServer(this, port);
+				server.start();
+			}
 		}
 	}
 
