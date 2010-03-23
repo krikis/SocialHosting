@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 public interface RMIRemoteRegistration extends Remote {
 
-	public boolean registerSocialHost() throws RemoteException;
+	public boolean registerSocialHost(int port) throws RemoteException;
 
-	public boolean deregisterSocialHost() throws RemoteException;
+	public boolean deregisterSocialHost(int port) throws RemoteException;
 }

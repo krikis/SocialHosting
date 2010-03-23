@@ -17,42 +17,39 @@ public class RMIServer extends UnicastRemoteObject implements
 
 	Vector<String> socialHostIPs = new Vector<String>();
 
-	RMIServer() throws RemoteException {
+	public RMIServer() throws RemoteException {
 		super();
 	}
 
-	public boolean registerSocialHost() throws RemoteException {
+	public boolean registerSocialHost(int port) throws RemoteException {
 		try {
-			socialHostIPs.add(RemoteServer.getClientHost());
-			System.out.println("Socialhost registered: "
-					+ RemoteServer.getClientHost());
-			// Registration succeeded
-			return true;
+			String host = RemoteServer.getClientHost();
+			if (port != 80)
+				host += ":" + port;
+			socialHostIPs.add(host);
+			System.out.println("Socialhost registered: " + host);
+			return true; // Registration succeeded
 		} catch (ServerNotActiveException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// Registration failed
-		return false;
+		return false; // Registration failed
 	}
 
-	public boolean deregisterSocialHost() throws RemoteException {
+	public boolean deregisterSocialHost(int port) throws RemoteException {
 		try {
-			socialHostIPs.remove(RemoteServer.getClientHost());
-			System.out.println("Socialhost deregistered: "
-					+ RemoteServer.getClientHost());
-			// Deregistration succeeded
-			return true;
+			String host = RemoteServer.getClientHost();
+			if (port != 80)
+				host += ":" + port;
+			socialHostIPs.remove(host);
+			System.out.println("Socialhost deregistered: " + host);
+			return true; // Deregistration succeeded
 		} catch (ServerNotActiveException e) {
 			e.printStackTrace();
 		}
-		// Deregistration failed
-		return false;
+		return false; // Deregistration failed
 	}
 
 	public static void main(String[] args) {
-
 		// Create and install a security manager
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new RMISecurityManager());
@@ -62,9 +59,9 @@ public class RMIServer extends UnicastRemoteObject implements
 			RMIServer server = new RMIServer();
 			// Bind RMI server instance
 			Naming.rebind(RMIServerName, server);
-			System.out.println("RMI server bound in registry");
+			System.out.println("RMI Server bound in registry");
 		} catch (Exception e) {
-			System.out.println("RMI server error: " + e.getMessage());
+			System.out.println("RMI Server error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}

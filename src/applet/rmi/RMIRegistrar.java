@@ -22,28 +22,28 @@ public class RMIRegistrar {
 		applet = log;
 	}
 
-	public void registerSocialHost() {
+	public void registerSocialHost(int port) {
 
 		try {
 			register = (RMIRemoteRegistration) Naming
 					.lookup("//" + applet.getCodeBase().getHost()
 							+ "/SocialHostingRegistry");
 
-			register.registerSocialHost();
+			register.registerSocialHost(port);
 			applet.log("Social host registered!");
 		} catch (Exception e) {
 			applet.reportError(e);
 		}
 	}
 
-	public void deregisterSocialHost() {
+	public void deregisterSocialHost(int port) {
 
 		try {
 			register = (RMIRemoteRegistration) Naming
 					.lookup("//" + applet.getCodeBase().getHost()
 							+ "/SocialHostingRegistry");
 
-			register.deregisterSocialHost();
+			register.deregisterSocialHost(port);
 			applet.log("Social host deregistered!");
 		} catch (Exception e) {
 			applet.reportError(e);

@@ -1,11 +1,11 @@
 #rmiregistry &
 cd src/
-javac  -d ../www/classes/  ./server/rmi/*.java
+javac  -d ./  ./server/rmi/*.java
+rmic  -d ./ server.rmi.RMIServer
 javac  -d ../www/  ./server/rmi/*.java
-javac  -d ./  server/rmi/*.java
 javac  -d ../www/  ./applet/*.java
 cd ../www/
-rmic -d ./ server.rmi.RMIServer
+rmic  -d ./ server.rmi.RMIServer
 jar cvf ./applet.jar ./applet/* ./public/* ./server/rmi/*
 jarsigner ./applet.jar applet
 cd ../src/

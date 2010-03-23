@@ -38,7 +38,7 @@ public class HTTPServer extends Thread {
 			serverSocket = new ServerSocket(port);
 			applet.log("Starting HTTP server on port " + port + "...");
 			// RMI request to register host			
-			registrar.registerSocialHost();
+			registrar.registerSocialHost(port);
 			applet.setServerStarted();
 			applet.log("HTTP Server successfully started!");
 		} catch (IOException e) {
@@ -67,7 +67,7 @@ public class HTTPServer extends Thread {
 		listening = false;
 		if (!serverSocket.isClosed()) {
 			// RMI request to deregister host			
-			registrar.deregisterSocialHost();
+			registrar.deregisterSocialHost(port);
 			applet.log("Stopping HTTP server on port " + port + "...");
 			try {
 				serverSocket.close();

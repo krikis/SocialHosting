@@ -15,11 +15,16 @@ import server.rmi.RMIRemoteRegistration;
 import applet.server.*;
 
 public class ServerApplet extends JApplet implements ActionListener {
+	// Layout elements for the applet
 	private Button startButton;
 	private Button stopButton;
+	private TextField textField;
 	private TextArea textArea;
+	// HTTP server running in the applet
 	private HTTPServer server = null;
-
+	// Default server port
+	private int port = 5555;
+	
 	public void init() {
 		// Set the layout
 		setLayout(new FlowLayout());
@@ -27,6 +32,8 @@ public class ServerApplet extends JApplet implements ActionListener {
 		startButton = new Button("Start Server");
 		stopButton = new Button("Stop Server");
 		stopButton.setEnabled(false);
+		textField = new TextField();
+		textField.setText(Integer.toString(port));
 		textArea = new TextArea("", 10, 60, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		textArea.setEditable(false);
 		add(startButton);
