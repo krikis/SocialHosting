@@ -1,5 +1,5 @@
-# run rmiregistry in console with CLASSPATH not containing RMI classes
-# export CLASSPATH=.
+# run rmiregistry in console with CLASSPATH not containing RMI classes (so NOT in project root)
+# export CLASSPATH=. # if you wish to wipe CLASSPATH in console temporarily
 # rmiregistry
 
 # go to 'src' directory in project
