@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URISyntaxException;
 
+import server.Server;
+
 /**
  * This class implements a thread of an HTTP Server. It receives an open socket
  * and handles the HTTP request that is made on it.

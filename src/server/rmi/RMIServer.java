@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Vector;
 
 public class RMIServer extends UnicastRemoteObject implements
-		RMIRemoteRegistration {
+		RMIRemoteRegistration, Runnable {
 
 	public static String RMIServerName = "SocialHostingRegistry";
 
@@ -19,6 +19,23 @@ public class RMIServer extends UnicastRemoteObject implements
 
 	public RMIServer() throws RemoteException {
 		super();
+	}
+
+	public void run() {
+		// Create and install a security manager
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new RMISecurityManager());
+		}
+
+		try {
+			RMIServer server = new RMIServer();
+			// Bind RMI server instance
+			Naming.rebind(RMIServerName, server);
+			System.out.println("RMI Server bound in registry");
+		} catch (Exception e) {
+			System.out.println("RMI Server error: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public boolean registerSocialHost(int port) throws RemoteException {
@@ -47,22 +64,5 @@ public class RMIServer extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		return false; // Deregistration failed
-	}
-
-	public static void main(String[] args) {
-		// Create and install a security manager
-		if (System.getSecurityManager() == null) {
-			System.setSecurityManager(new RMISecurityManager());
-		}
-
-		try {
-			RMIServer server = new RMIServer();
-			// Bind RMI server instance
-			Naming.rebind(RMIServerName, server);
-			System.out.println("RMI Server bound in registry");
-		} catch (Exception e) {
-			System.out.println("RMI Server error: " + e.getMessage());
-			e.printStackTrace();
-		}
 	}
 }

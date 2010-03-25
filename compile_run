@@ -4,6 +4,10 @@
 
 # go to 'src' directory in project
 cd src/
+# compile main server
+javac  -d ./  ./server/*.java
+# compile http-server
+javac  -d ./  ./server/http/*.java
 # compile rmi-server
 javac  -d ./  ./server/rmi/*.java
 # create stubs for rmi-server
@@ -35,4 +39,10 @@ jarsigner ./applet.jar applet
 # go back to 'src' directory
 cd ../src/
 # fire up the rmi-server
-java  -Djava.rmi.server.codebase=http://localhost:4444/applet.jar  -Djava.security.policy=server/rmi/policy  server.rmi.RMIServer
+port=4444
+if [ -n "$1" ]
+then
+  let "port=$1"
+fi  
+
+java  -Djava.rmi.server.codebase=http://localhost:$port/applet.jar  -Djava.security.policy=server/rmi/policy  server.Server $port

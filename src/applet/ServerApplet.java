@@ -87,7 +87,8 @@ public class ServerApplet extends JApplet implements ActionListener,
 				return;
 			// check input length
 			else if (textField.getText().length() >= textFieldSize
-					&& textField.getSelectionStart() == textField.getSelectionEnd())
+					&& textField.getSelectionStart() == textField
+							.getSelectionEnd())
 				evt.consume();
 			// check input content
 			else if (character < '0' || character > '9')

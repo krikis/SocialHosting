@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import server.Server;
+
 /**
  * This class implements reading a file from the file system and returning its
  * contents as an array of bytes.
@@ -18,7 +20,7 @@ public class FileHandler {
 	// the path to the requested file
 	private String filePath;
 	// the server file root
-	private static String root = "www";
+	private static String root = "../www";
 	// the server status
 	private String status;
 	// the extension of the requested file
@@ -60,16 +62,10 @@ public class FileHandler {
 	public byte[] readAsBytes() {
 		File f;
 		try {
-			// still need to check whether this works inside .Jars
-			if (this.getClass().getClassLoader().getResource(filePath) != null) {
-				f = new File(this.getClass().getClassLoader().getResource(
-						filePath).toURI());
-			} else {
-				f = new File(filePath);
-			}
-		} catch (URISyntaxException e) {
-			System.err.println("File URI bad syntax: " + filePath);
-			return new byte[] {};
+			f = new File(filePath);
+		} catch (NullPointerException e) {
+			status = HTTPResponse.NOT_FOUND; // set server status
+			return "\n".getBytes();
 		}
 
 		FileInputStream fin;

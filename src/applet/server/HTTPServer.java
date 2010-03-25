@@ -8,7 +8,8 @@ import java.net.ServerSocket;
 
 /**
  * This class implements a MultiThreaded HTTP Server. For every connection made
- * on the socket a new thread is fired up handling the HTTP request.
+ * on the socket a new thread is fired up handling the HTTP request. The served
+ * files are read from the applet jarfile.
  * 
  * @author Samuel Esposito & Jorn van de Beek
  * 
