@@ -2,6 +2,7 @@ package server;
 
 import java.rmi.RemoteException;
 import java.util.Vector;
+import java.util.Random;
 
 import server.http.HTTPServer;
 import server.rmi.RMIServer;
@@ -14,8 +15,10 @@ import server.rmi.RMIServer;
  * 
  */
 public class Server {
-
+	// List of social host IPs
 	private static Vector<String> socialHostIPs = new Vector<String>();
+	// Random number generator
+	private static Random random;
 
 	/**
 	 * Adds a social host IP to the list of SocialHostIPs
@@ -38,6 +41,21 @@ public class Server {
 	}
 
 	/**
+	 * Returns a random host from the list of social hosts or null if the list
+	 * is emtpy.
+	 * 
+	 * @return a random host from the list of social hosts
+	 */
+	public static String randomHost() {
+		if (socialHostIPs.size() > 0) {
+			int index = random.nextInt(socialHostIPs.size());
+			return socialHostIPs.elementAt(index);
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * This main method starts up the HTTP Server and the RMI Server
 	 * 
 	 * @param args
@@ -45,6 +63,8 @@ public class Server {
 	 *            4444.
 	 */
 	public static void main(String[] args) {
+		// Create random number generator
+		random = new Random(8750212);
 		// Read and validate port
 		int port = -1;
 		try {

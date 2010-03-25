@@ -13,6 +13,7 @@ import java.util.TimeZone;
 public class HTTPResponse {
 	// possible http response codes
 	public static final String OK = "200 OK";
+	public static final String REDIRECT = "302 Found";
 	public static final String NOT_FOUND = "404 Not Found";
 	// contains possible content types
 	public static final String JAR_MIME = "application/x-java-archive";
@@ -33,24 +34,58 @@ public class HTTPResponse {
 	private String server = "Java Strange Brew v1.0.0";
 	// specifies the reponse content type
 	private String contentType;
+	// specifies a redirects destination
+	private String location;
 
 	/**
-	 * Creates a {@link HTTPResponse} object with a compiled header
-	 * corresponding the given parameters
+	 * Creates an empty {@link HTTPResponse} object
+	 */
+	public HTTPResponse() {
+
+	}
+
+	/**
+	 * Sets the response code of the HTTP response
 	 * 
 	 * @param code
-	 *            the response code for the HTTP response header
-	 * @param type
-	 *            the content type for the HTTP reponse body
-	 * @param length
-	 *            the length of the HTTP resonse body
+	 *            the response code of the HTTP response
 	 */
-	public HTTPResponse(String code, String type, String length) {
+	public void setResponseCode(String code) {
 		responseCode = code;
+		header = null;
+	}
+
+	/**
+	 * Sets the content type of the HTTP response
+	 * 
+	 * @param type
+	 *            the content type of the HTTP response
+	 */
+	public void setContentType(String type) {
 		contentType = type;
+		header = null;
+	}
+
+	/**
+	 * Sets the content length of the HTTP response
+	 * 
+	 * @param type
+	 *            the content length of the HTTP response
+	 */
+	public void setContentLength(String length) {
 		contentLength = length;
-		date = forgeDateDueToEmptyJava();
-		compile();
+		header = null;
+	}
+
+	/**
+	 * Sets the location of an HTTP redirect response
+	 * 
+	 * @param type
+	 *            the location of an HTTP redirect response
+	 */
+	public void setLocation(String destination) {
+		location = destination;
+		header = null;
 	}
 
 	/**
@@ -59,6 +94,9 @@ public class HTTPResponse {
 	 * @return the compiled HTTP response header
 	 */
 	public String header() {
+		if (header == null) {
+			compile();
+		}
 		return header;
 	}
 
@@ -81,15 +119,17 @@ public class HTTPResponse {
 	 */
 	private void compile() {
 		header = protocol + " " + responseCode + "\n";
-		header += "Date: " + date + "\n";
+		header += "Date: " + forgeDateDueToEmptyJava() + "\n";
 		header += "Server: " + server + "\n";
+		if (responseCode == REDIRECT)
+			header += "Location: " + location + "\n";
 		header += "Content-Type: " + contentType + "\n";
 		header += "Content-Length: " + contentLength + "\n";
 		header += "\n";
 	}
 
 	public String toString() {
-		return header;
+		return header();
 	}
 
 }
