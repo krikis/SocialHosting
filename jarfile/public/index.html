@@ -1,11 +1,529 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-    <title>Hello World</title>
-</head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
 
-<body>
-    <h3>Hello World!</h3>
-</body>
-</html>
+
+
+
+  <script type="text/javascript">
+//<![CDATA[
+var matches,url,path,domain;url=document.location.toString();try{domain=url.match(/https?:\/\/[^\/]+/);if(matches=url.match(/(.+?)#(.+)/)){url=matches[1];path=matches[2];if(path){var arr=path.split(/\?/);path=arr[0];var params=arr[1];path=path.replace(/^\//,"");var redirect_url=[domain,path].join("/");if(params){redirect_url=[redirect_url,params].join("?")}document.location=redirect_url}}}catch(err){};
+//]]>
+</script>
+  <script type="text/javascript">
+//<![CDATA[
+var page={};var onCondition=function(D,C,A,B){D=D;A=A?Math.min(A,5):5;B=B||100;if(D()){C()}else{if(A>1){setTimeout(function(){onCondition(D,C,A-1,B)},B)}}};
+//]]>
+</script>
+  
+
+
+
+
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="en-us" http-equiv="Content-Language">
+<meta content="Twitter is without a doubt the best way to share and 
+discover what is happening right now." name="description">
+<meta content="no" http-equiv="imagetoolbar">
+<meta content="width = 780" name="viewport">
+<meta content="4FTTxY4uvo0RZTMQqIyhh18HsepyJOctQ+XTOu1zsfE=" 
+name="verify-v1">
+<meta content="1" name="page">
+<meta content="NOODP" name="robots">
+<meta content="n" name="session-loggedin">
+  <title>Twitter</title>
+  <link href="http://a1.twimg.com/a/1269387398/images/favicon.ico" 
+rel="shortcut icon" type="image/x-icon">
+<link href="http://a1.twimg.com/a/1269387398/images/twitter_57.png" 
+rel="apple-touch-icon">
+  
+  <link href="twitter_files/front.css" media="screen, projection" 
+rel="stylesheet" type="text/css">
+</head><body class="timeline firefox front" id="front">
+  <script type="text/javascript">
+//<![CDATA[
+if (window.top !== window.self) {document.write = "";window.top.location = window.self.location; setTimeout(function(){document.body.innerHTML='';},1);window.self.onload=function(evt){document.body.innerHTML='';};}
+//]]>
+</script>
+  <ul id="accessibility" class="offscreen">
+  <li><a href="#content" accesskey="0">Skip past navigation</a></li>
+  <li>On a mobile phone? Check out <a href="http://m.twitter.com/">m.twitter.com</a>!</li>
+  <li><a href="#footer" accesskey="2">Skip to navigation</a></li>
+    <li><a href="#signin">Skip to sign in form</a></li>
+</ul>
+
+
+  <div id="container">
+
+    <div id="topnav">
+      <div id="small_signup">
+        <span>New to Twitter?</span>
+        <a href="http://twitter.com/signup" class="signup-button">Sign 
+up now</a>
+      </div>
+      Have an account? <a href="http://twitter.com/login" class="signin"
+ tabindex="3"><span>Sign in</span></a>
+    </div>
+
+    <fieldset id="signin_menu" class="common-form standard-form">
+    
+      <form method="post" id="signin" 
+action="https://twitter.com/sessions">
+    
+      <input id="authenticity_token" name="authenticity_token" 
+value="6b98c8b6d79c63251f4febbd3bd3e683a7d0535e" type="hidden">        <p>
+          <label for="username">Username or email</label>
+          <input id="username" name="session[username_or_email]" 
+title="username" tabindex="4" type="text">
+        </p>
+        <p>
+          <label for="password">Password</label>
+          <input id="password" name="session[password]" value="" 
+title="password" tabindex="5" type="password">
+        </p>
+        <p class="remember">
+            <input id="signin_submit" value="Sign in" tabindex="7" 
+type="submit">
+            <input id="remember" name="remember_me" value="1" 
+tabindex="6" type="checkbox">
+            <label for="remember">Remember me</label>
+        </p>
+        <p class="forgot">
+          <a href="http://twitter.com/account/resend_password" 
+id="resend_password_link">Forgot your password?</a>
+        </p>
+        <p class="forgot-username">
+          <a href="" id="forgot_username_link" title="If you remember 
+your password, try logging in with your email">Forgot your username?</a>
+        </p>
+        <p class="complete">
+          <a href="http://twitter.com/account/complete" 
+id="account_complete_link">Already using Twitter on your phone?</a>
+        </p>
+        <input name="q" id="signin_q" value="" type="hidden">
+      </form>
+    </fieldset>
+
+    <div id="header">
+      <div id="header2">
+        <h1 id="tagline">Share and discover what’s happening right now, 
+anywhere in the world.</h1>
+        <a href="http://twitter.com/" class="logo"><img alt="Twitter" 
+id="logo" src="twitter_files/logo.png" height="55" width="224" 
+border="0"></a>
+
+        <img alt="Tweet, tweet!" id="bird" 
+src="twitter_files/frontpage-bird.png" height="55" width="80">
+        <form action="/search" class="search" id="home_search" 
+method="post"><div style="margin: 0pt; padding: 0pt;"><input 
+name="authenticity_token" 
+value="6b98c8b6d79c63251f4febbd3bd3e683a7d0535e" type="hidden"></div>
+          <div>
+            <div id="big_signup">
+              <label>Join the conversation</label>
+              <a href="http://twitter.com/signup" class="signup-button" 
+id="signup_submit" tabindex="8">Sign up now</a>
+            </div>
+            
+              <label for="home_search_q">See what people are saying 
+about…</label>
+              <input id="home_search_q" size="40" name="q" accesskey="/"
+ tabindex="1" type="text">
+              <a href="#" id="home_search_submit" class="submit" 
+tabindex="2">Search</a>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="trend_info">
+      <span>POPULAR TOPICS BY THE MINUTE, DAY, AND WEEK</span> <img 
+alt="Trend info" src="twitter_files/icon-what.png" title="Twitter looks 
+at every incoming tweet, then ranks the popularity of certain words or 
+phrases in real time. Click any of the popular topics below to see what 
+people are saying about them right now." height="16" width="16">
+    </div>
+
+    <div id="trend_description">
+      <span></span><img alt="Trend Info" 
+src="twitter_files/icon-what.png" title="Twitter looks at every incoming
+ tweet, then ranks the popularity of certain words or phrases in real 
+time. Click any of the popular topics below to see what people are 
+saying about them right now. Some topic descriptions are sourced from 
+WhatTheTrend.com." height="16" width="16"><p></p>
+    </div>
+
+    <div id="trends">
+      
+        
+  <div class="current" title="Popular topics right now">
+    <ul>
+                
+            <li><a href="http://twitter.com/search?q=%22I+%E2%99%A5%22" 
+class="search_link" name="&quot;I ♥&quot;" rel="nofollow" title="&quot;I
+ ♥&quot;">I ♥</a><em>People are tweeting things they heart (i.e. love).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=Easter" 
+class="search_link" name="Easter" rel="nofollow" title="Easter">Easter</a><em>A
+ Christian holiday celebrated this year on April 4. </em></li>
+          
+            <li><a href="http://twitter.com/search?q=Facebook" 
+class="search_link" name="Facebook" rel="nofollow" title="Facebook">Facebook</a></li>
+          
+            <li><a href="http://twitter.com/search?q=Goodmorning" 
+class="search_link" name="Goodmorning" rel="nofollow" 
+title="Goodmorning">Goodmorning</a><em>Often trends when people wake up 
+and greet their tweeps.</em></li>
+          
+            <li><a href="http://twitter.com/search?q=Spring" 
+class="search_link" name="Spring" rel="nofollow" title="Spring">Spring</a><em>March
+ 20 is the first day of spring.</em></li>
+          
+            <li><a href="http://twitter.com/search?q=%22UFC+111%22" 
+class="search_link" name="&quot;UFC 111&quot;" rel="nofollow" 
+title="&quot;UFC 111&quot;">UFC 111</a></li>
+          
+            <li><a href="http://twitter.com/search?q=%23nowplaying" 
+class="search_link" name="#nowplaying" rel="nofollow" 
+title="#nowplaying">#nowplaying</a><em>People are tweeting their media 
+choice of the moment.</em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%23sometimesiwonder" 
+class="search_link" name="#sometimesiwonder" rel="nofollow" 
+title="#sometimesiwonder">#sometimesiwonder</a><em>People are tweeting 
+things about which they wonder.</em></li>
+          
+            <li><a href="http://twitter.com/search?q=%23OhJustLikeMe" 
+class="search_link" name="#OhJustLikeMe" rel="nofollow" 
+title="#OhJustLikeMe">#OhJustLikeMe</a><em>People are tweeting things 
+that they've discovered they have in common.</em></li>
+          
+            <li><a href="http://twitter.com/search?q=%23hcr" 
+class="search_link" name="#hcr" rel="nofollow" title="#hcr">#hcr</a><em>Health
+ Care Reform. People are tweeting news about this issue in the U.S.</em></li>
+          
+      
+    </ul>
+  </div>
+
+        
+        
+  <div class="daily" title="Popular topics today">
+    <ul>
+                
+            <li><a 
+href="http://twitter.com/search?q=%22Justin+Bieber%22+OR+Bieber" 
+class="search_link" name="&quot;Justin Bieber&quot; OR Bieber" 
+rel="nofollow" title="&quot;Justin Bieber&quot; OR Bieber">Justin Bieber</a><em>The
+ young Canadian R&amp;B/pop singer has a lot of fans who like to tweet 
+about him! His new album, My World 2.0, came out yesterday (March 23).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=%22My+World+2%22" 
+class="search_link" name="&quot;My World 2&quot;" rel="nofollow" 
+title="&quot;My World 2&quot;">My World 2</a><em>@justinbieber's new 
+album is now available (March 23).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=%22I+%E2%99%A5%22" 
+class="search_link" name="&quot;I ♥&quot;" rel="nofollow" title="&quot;I
+ ♥&quot;">I ♥</a><em>People are tweeting things they heart (i.e. love).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=Flo" 
+class="search_link" name="Flo" rel="nofollow" title="Flo">Flo</a></li>
+          
+            <li><a href="http://twitter.com/search?q=Goodnight" 
+class="search_link" name="Goodnight" rel="nofollow" title="Goodnight">Goodnight</a><em>People
+ are tweeting their last tweet of the day.</em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22Bad+Girls+Club%22" 
+class="search_link" name="&quot;Bad Girls Club&quot;" rel="nofollow" 
+title="&quot;Bad Girls Club&quot;">Bad Girls Club</a><em>The show 
+follows seven independent women and airs Tuesdays on the Oxygen channel.</em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22American+Idol%22+OR+%23Idol" 
+class="search_link" name="&quot;American Idol&quot; OR #Idol" 
+rel="nofollow" title="&quot;American Idol&quot; OR #Idol">American Idol</a><em>The
+ popular US talent show airs Tuesday and Wednesday nights on Fox.</em></li>
+          
+            <li><a href="http://twitter.com/search?q=Signup" 
+class="search_link" name="Signup" rel="nofollow" title="Signup">Signup</a></li>
+          
+            <li><a href="http://twitter.com/search?q=Natalie" 
+class="search_link" name="Natalie" rel="nofollow" title="Natalie">Natalie</a></li>
+          
+            <li><a href="http://twitter.com/search?q=BGC" 
+class="search_link" name="BGC" rel="nofollow" title="BGC">BGC</a><em>The
+ Bad Girls Club airs Tuesdays on the Oxygen channel.</em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22That+Should+Be+Me%22" 
+class="search_link" name="&quot;That Should Be Me&quot;" rel="nofollow" 
+title="&quot;That Should Be Me&quot;">That Should Be Me</a><em>@justinbieber
+ asked which song off his new album is everyone's favorite and lots of 
+people cited this one. </em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22Apple+iPad%22+OR+IPAD" 
+class="search_link" name="&quot;Apple iPad&quot; OR IPAD" rel="nofollow"
+ title="&quot;Apple iPad&quot; OR IPAD">Apple iPad</a></li>
+          
+      
+    </ul>
+  </div>
+
+        
+  <div class="weekly" title="Popular topics this week">
+    <ul>
+                
+            <li><a href="http://twitter.com/search?q=%22My+World+2%22" 
+class="search_link" name="&quot;My World 2&quot;" rel="nofollow" 
+title="&quot;My World 2&quot;">My World 2</a><em>@justinbieber's new 
+album is now available (March 23).</em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22Justin+Bieber%22+OR+Bieber" 
+class="search_link" name="&quot;Justin Bieber&quot; OR Bieber" 
+rel="nofollow" title="&quot;Justin Bieber&quot; OR Bieber">Justin Bieber</a><em>The
+ young Canadian R&amp;B/pop singer has a lot of fans who like to tweet 
+about him! His new album, My World 2.0, came out yesterday (March 23).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=Guinness" 
+class="search_link" name="Guinness" rel="nofollow" title="Guinness">Guinness</a><em>Many
+ people celebrate Saint Patrick's Day by drinking a pint of this beer 
+(March 17).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=%22U+Smile%22" 
+class="search_link" name="&quot;U Smile&quot;" rel="nofollow" 
+title="&quot;U Smile&quot;">U Smile</a><em>The Justin Beiber track off 
+of his forthcoming second album will be available on iTunes tomorrow 
+(March 15).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=Kansas" 
+class="search_link" name="Kansas" rel="nofollow" title="Kansas">Kansas</a></li>
+          
+            <li><a href="http://twitter.com/search?q=%22New+Moon%22" 
+class="search_link" name="&quot;New Moon&quot;" rel="nofollow" 
+title="&quot;New Moon&quot;">New Moon</a><em>The Twilight Saga's second 
+installment comes out on DVD tomorrow (March 20) and many fans will be 
+out waiting for a midnight release event.</em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22I%27m+Irish%22+OR+Irish" 
+class="search_link" name="&quot;I'm Irish&quot; OR Irish" rel="nofollow"
+ title="&quot;I'm Irish&quot; OR Irish">I'm Irish</a><em>People are 
+claiming their cred for Saint Patrick's Day, which while originally 
+designated as a day for the patron Saint, is now more of a celebration 
+of Irish culture (March 17).</em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22World+Water+Day%22" 
+class="search_link" name="&quot;World Water Day&quot;" rel="nofollow" 
+title="&quot;World Water Day&quot;">World Water Day</a><em>Today (March 
+22) is a day to promote awareness of drinking water shortages around the
+ world. Hundreds of millions of people don't have access. </em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22March+Madness%22" 
+class="search_link" name="&quot;March Madness&quot;" rel="nofollow" 
+title="&quot;March Madness&quot;">March Madness</a><em>Every March the 
+NCAA invites 65 collegiate basketball teams to play in an elimination 
+tournament.</em></li>
+          
+            <li><a href="http://twitter.com/search?q=Irish" 
+class="search_link" name="Irish" rel="nofollow" title="Irish">Irish</a><em>March
+ 17th is St. Patrick's Day, for the patron saint of Ireland. People 
+tweeting their plans for celebrating Irish culture, which often include a
+ pint of Guinness. </em></li>
+          
+            <li><a 
+href="http://twitter.com/search?q=%22Ben+%26+Jerry%27s%22" 
+class="search_link" name="&quot;Ben &amp; Jerry's&quot;" rel="nofollow" 
+title="&quot;Ben &amp; Jerry's&quot;">Ben &amp; Jerry's</a><em>You can 
+get a free ice cream cone today from 12-8 PM (March 23).</em></li>
+          
+            <li><a href="http://twitter.com/search?q=%23nowplaying" 
+class="search_link" name="#nowplaying" rel="nofollow" 
+title="#nowplaying">#nowplaying</a><em>People are tweeting their media 
+choice of the moment.</em></li>
+          
+      
+    </ul>
+  </div>
+
+        <span class="fade"> </span>
+      
+    </div>
+    <div class="wrapper">
+      <div id="sidebar">
+        
+          
+            <h2><strong>Trending</strong> topics</h2>
+            <div id="trends_list">
+              <ul>
+                
+                  
+                    <li><a 
+href="http://twitter.com/search?q=%23nowplaying" name="#nowplaying" 
+title="People are tweeting their media choice of the moment." 
+rel="nofollow">#nowplaying</a></li>
+                  
+                    <li><a 
+href="http://twitter.com/search?q=%23sometimesiwonder" 
+name="#sometimesiwonder" title="People are tweeting things about which 
+they wonder." rel="nofollow">#sometimesiwonder</a></li>
+                  
+                    <li><a 
+href="http://twitter.com/search?q=%22I+%E2%99%A5%22" name="&quot;I 
+♥&quot;" title="People are tweeting things they heart (i.e. love)." 
+rel="nofollow">I ♥</a></li>
+                  
+                    <li><a 
+href="http://twitter.com/search?q=%23OhJustLikeMe" name="#OhJustLikeMe" 
+title="People are tweeting things that they've discovered they have in 
+common." rel="nofollow">#OhJustLikeMe</a></li>
+                  
+                    <li><a href="http://twitter.com/search?q=%23hcr" 
+name="#hcr" title="Health Care Reform. People are tweeting news about 
+this issue in the U.S." rel="nofollow">#hcr</a></li>
+                  
+                    <li><a href="http://twitter.com/search?q=Easter" 
+name="Easter" title="A Christian holiday celebrated this year on April 
+4. " rel="nofollow">Easter</a></li>
+                  
+                    <li><a href="http://twitter.com/search?q=Facebook" 
+name="Facebook" title="" rel="nofollow">Facebook</a></li>
+                  
+                    <li><a 
+href="http://twitter.com/search?q=Goodmorning" name="Goodmorning" 
+title="Often trends when people wake up and greet their tweeps." 
+rel="nofollow">Goodmorning</a></li>
+                  
+                    <li><a href="http://twitter.com/search?q=Spring" 
+name="Spring" title="March 20 is the first day of spring." 
+rel="nofollow">Spring</a></li>
+                  
+                    <li><a 
+href="http://twitter.com/search?q=%22UFC+111%22" name="&quot;UFC 
+111&quot;" title="" rel="nofollow">UFC 111</a></li>
+                  
+                
+              </ul>
+            </div>
+          
+        
+        <div class="search-tip">
+          <h3>Search tip</h3>
+          <div>Use a question mark (<em>?</em>) to find tweets that ask a
+ question. Example: <a href="http://twitter.com/search?q=traffic+%3F">traffic
+ ?</a> will find tweets containing "traffic" that ask a question.</div>
+        </div>
+        <div class="signup-tip">
+          <h2><strong>Join</strong> the conversation</h2>
+          <a href="http://twitter.com/signup">Sign up now</a> to 
+contribute what's going on in your world and to filter your view of 
+Twitter down to the people and topics that interest you most.
+        </div>
+      </div>
+      <div id="content" class="homepage">
+        <h2 id="timeline_heading"></h2>
+                  <div 
+data="{&quot;search&quot;:{&quot;delay&quot;:20,&quot;decay&quot;:1.25,&quot;max_delay&quot;:180},&quot;timeline&quot;:{&quot;delay&quot;:30,&quot;decay&quot;:1.5,&quot;max_refresh_size&quot;:40,&quot;max_delay&quot;:300}}"
+ id="new_results_notification"><a accesskey="n" 
+class="minor-notification" id="results_update" style="display: none;"></a></div>
+        
+        <ol id="timeline" class="statuses"></ol>
+        <div id="pagination"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    
+
+    
+
+    
+    
+  <div id="footer" class="round wide">
+      <h3 class="offscreen">Footer</h3>
+      
+      
+      <form action="/sessions/change_locale" id="lf" method="post" 
+style="display: none;"><div style="margin: 0pt; padding: 0pt;"><input 
+name="authenticity_token" 
+value="6b98c8b6d79c63251f4febbd3bd3e683a7d0535e" type="hidden"></div>
+  <input name="lang" id="lang" value="en" type="hidden">
+</form>
+<ul class="language-select"><li>Language:</li><li><span>English</span>&nbsp;<small>▼</small></li></ul>
+<ol class="language-menu round">
+  <li id="it">Italian - Italiano</li>
+  <li id="es">Spanish - Español</li>
+  <li id="en">English</li>
+  <li id="fr">French - français</li>
+  <li id="de">German - Deutsch</li>
+  <li id="ja">Japanese - 日本語</li>
+</ol>
+    
+      <ul>
+          <li class="first">© 2010 Twitter</li>
+          <li><a href="http://twitter.com/about">About Us</a></li>
+          <li><a href="http://twitter.com/about/contact">Contact</a></li>
+          <li><a href="http://blog.twitter.com/">Blog</a></li>
+          <li><a href="http://status.twitter.com/">Status</a></li>
+                      <li><a href="http://twitter.com/goodies">Goodies</a></li>
+                    <li><a href="http://apiwiki.twitter.com/">API</a></li>
+                      <li><a 
+href="http://business.twitter.com/twitter101">Business</a></li>
+                    <li><a href="http://twitter.com/help/start">Help</a></li>
+          <li><a href="http://twitter.com/jobs">Jobs</a></li>
+          <li><a href="http://twitter.com/tos">Terms</a></li>
+          <li><a href="http://twitter.com/privacy">Privacy</a></li>
+      </ul>
+  </div>
+
+
+  </div>
+
+  
+  <script type="text/javascript">
+      page.summizeSearchUrl = 'http://integratedsearch.twitter.com/search.html';
+  page.query = '';
+  page.locale = 'en';
+  
+    window.twttr = window.twttr || {};
+    twttr.form_authenticity_token = '6b98c8b6d79c63251f4febbd3bd3e683a7d0535e';
+  
+  </script>
+  <script src="twitter_files/jquery.js" type="text/javascript"></script>
+<script src="twitter_files/front.js" type="text/javascript"></script>
+  
+
+  
+  <div id="notifications"></div>
+
+      <!-- BEGIN google analytics -->
+
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script><script src="twitter_files/ga.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+
+    try {
+      var pageTracker = _gat._getTracker("UA-30775-6");
+      pageTracker._setDomainName("twitter.com");
+            pageTracker._setVar('Not Logged In');
+            pageTracker._setVar('lang: en');
+            pageTracker._initData();
+                              pageTracker._trackPageview('/');
+                  } catch(err) { }
+
+  </script>
+
+  <!-- END google analytics -->
+
+
+
+
+</body></html>

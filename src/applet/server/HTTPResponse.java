@@ -19,6 +19,11 @@ public class HTTPResponse {
 	public static final String JNLP_MIME = "application/x-java-jnlp-file";
 	public static final String CLASS_MIME = "application/java-vm";
 	public static final String HTML_MIME = "text/html";
+	public static final String JS_MIME = "text/javascript";
+	public static final String CSS_MIME = "text/css";
+	public static final String PNG_MIME = "image/png";
+	public static final String JPG_MIME = "image/jpg";
+	public static final String GIF_MIME = "image/gif";
 	// the fully compiled header
 	private String header;
 	// defines http protocol version

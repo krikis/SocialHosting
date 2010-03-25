@@ -19,9 +19,9 @@ public class HTTPClient {
 		Socket kkSocket = null;
 		PrintWriter out = null;
 		BufferedReader in = null;
-		String host = "localhost";
+		String host = "www.google-analytics.com";
 		int port = 80;
-		String path = "/classes/server/rmi/RMIRemoteRegistration.class";
+		String path = "/ga.js";
 
 		try {
 			kkSocket = new Socket(host, port);

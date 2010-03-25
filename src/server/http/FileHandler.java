@@ -1,9 +1,11 @@
 package server.http;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -39,6 +41,16 @@ public class FileHandler {
 			mime = HTTPResponse.HTML_MIME;
 		else if (filePath.substring(filePath.length() - 4).equals(".htm"))
 			mime = HTTPResponse.HTML_MIME;
+		else if (filePath.substring(filePath.length() - 3).equals(".js"))
+			mime = HTTPResponse.JS_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".css"))
+			mime = HTTPResponse.CSS_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".png"))
+			mime = HTTPResponse.PNG_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".jpg"))
+			mime = HTTPResponse.JPG_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".gif"))
+			mime = HTTPResponse.GIF_MIME;
 		else if (filePath.substring(filePath.length() - 4).equals(".jar"))
 			mime = HTTPResponse.JAR_MIME;
 		else if (filePath.substring(filePath.length() - 5).equals(".jnlp"))
@@ -72,6 +84,7 @@ public class FileHandler {
 
 			byte[] bytecodes = new byte[(int) (f.length())];
 			in.readFully(bytecodes);
+			
 			status = HTTPResponse.OK; // set server status
 			return bytecodes;
 		} catch (FileNotFoundException e) {

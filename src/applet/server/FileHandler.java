@@ -2,7 +2,6 @@ package applet.server;
 
 import java.io.InputStream;
 
-import server.http.HTTPResponse;
 import applet.ServerApplet;
 
 /**
@@ -40,6 +39,16 @@ public class FileHandler {
 			mime = HTTPResponse.HTML_MIME;
 		else if (filePath.substring(filePath.length() - 4).equals(".htm"))
 			mime = HTTPResponse.HTML_MIME;
+		else if (filePath.substring(filePath.length() - 3).equals(".js"))
+			mime = HTTPResponse.JS_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".css"))
+			mime = HTTPResponse.CSS_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".png"))
+			mime = HTTPResponse.PNG_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".jpg"))
+			mime = HTTPResponse.JPG_MIME;
+		else if (filePath.substring(filePath.length() - 4).equals(".gif"))
+			mime = HTTPResponse.GIF_MIME;
 		else if (filePath.substring(filePath.length() - 4).equals(".jar"))
 			mime = HTTPResponse.JAR_MIME;
 		else if (filePath.substring(filePath.length() - 5).equals(".jnlp"))
@@ -65,7 +74,8 @@ public class FileHandler {
 				status = HTTPResponse.NOT_FOUND; // set server status
 				return "\n".getBytes();
 			}
-			byte[] bytecode = new byte[1024];
+			int initial = 1024;
+			byte[] bytecode = new byte[initial];
 			int offset = 0;
 			int empty = bytecode.length;
 			int read = 0;
@@ -80,6 +90,16 @@ public class FileHandler {
 					empty = offset;
 					bytecode = temp;
 				} else {
+					byte[] temp = null;
+					if (bytecode.length == initial) {
+						temp = new byte[read];
+					} else {
+						temp = new byte[(bytecode.length / 2) + read];
+					}
+					for (int index = 0; index < temp.length; index++) {
+						temp[index] = bytecode[index];
+					}
+					bytecode = temp;
 					break;
 				}
 			}
