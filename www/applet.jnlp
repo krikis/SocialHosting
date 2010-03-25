@@ -13,7 +13,7 @@
     <applet-desc 
         name="Applet"
         main-class="applet.ServerApplet"
-        width="600"
-        height="300">
+        width="720"
+        height="200">
     </applet-desc>
 </jnlp>

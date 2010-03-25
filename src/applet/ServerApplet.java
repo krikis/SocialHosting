@@ -29,12 +29,12 @@ public class ServerApplet extends JApplet implements ActionListener,
 	// HTTP server running in the applet
 	private HTTPServer server = null;
 	// Default server port
-	private String port = "5555";
+	private String port = "80";
 
 	public void init() {
 		// Set the layout
 		setLayout(new FlowLayout());
-		setBackground(Color.WHITE);
+		setBackground(new Color(85, 153, 187));
 		startButton = new Button("Start Server");
 		stopButton = new Button("Stop Server");
 		clearButton = new Button("Clear Log");
@@ -44,7 +44,7 @@ public class ServerApplet extends JApplet implements ActionListener,
 		textField = new TextField(5);
 		textFieldSize = 5;
 		textField.setText(port);
-		textArea = new TextArea("", 10, 60, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		textArea = new TextArea("", 10, 73, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		textArea.setEditable(false);
 		add(label);
 		add(textField);

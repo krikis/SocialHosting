@@ -16,32 +16,40 @@ public class RMIRegistrar {
 		applet = log;
 	}
 
-	public void registerSocialHost(int port) {
+	public boolean registerSocialHost(int port) {
 
 		try {
 			register = (RMIRemoteRegistration) Naming
 					.lookup("//" + applet.getCodeBase().getHost()
 							+ "/SocialHostingRegistry");
 
-			register.registerSocialHost(port);
-			applet.log("Social host registered!");
+			boolean success = register.registerSocialHost(port);
+			if (!success)
+				return false;
+			applet.log("Social host registered.");
 		} catch (Exception e) {
 			applet.reportError(e);
+			return false;
 		}
+		return true;
 	}
 
-	public void deregisterSocialHost(int port) {
+	public boolean deregisterSocialHost(int port) {
 
 		try {
 			register = (RMIRemoteRegistration) Naming
 					.lookup("//" + applet.getCodeBase().getHost()
 							+ "/SocialHostingRegistry");
 
-			register.deregisterSocialHost(port);
-			applet.log("Social host deregistered!");
+			boolean success = register.deregisterSocialHost(port);
+			if (!success)
+				return false;
+			applet.log("Social host deregistered.");
 		} catch (Exception e) {
 			applet.reportError(e);
+			return false;
 		}
+		return true;
 	}
 
 }
