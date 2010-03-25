@@ -3,19 +3,16 @@ package server.rmi;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Vector;
+
+import server.Server;
 
 public class RMIServer extends UnicastRemoteObject implements
 		RMIRemoteRegistration, Runnable {
 
 	public static String RMIServerName = "SocialHostingRegistry";
-
-	Vector<String> socialHostIPs = new Vector<String>();
 
 	public RMIServer() throws RemoteException {
 		super();
@@ -28,9 +25,8 @@ public class RMIServer extends UnicastRemoteObject implements
 		}
 
 		try {
-			RMIServer server = new RMIServer();
 			// Bind RMI server instance
-			Naming.rebind(RMIServerName, server);
+			Naming.rebind(RMIServerName, this);
 			System.out.println("RMI Server bound in registry");
 		} catch (Exception e) {
 			System.out.println("RMI Server error: " + e.getMessage());
@@ -43,7 +39,7 @@ public class RMIServer extends UnicastRemoteObject implements
 			String host = RemoteServer.getClientHost();
 			if (port != 80)
 				host += ":" + port;
-			socialHostIPs.add(host);
+			Server.addSocialHost(host);
 			System.out.println("Socialhost registered: " + host);
 			return true; // Registration succeeded
 		} catch (ServerNotActiveException e) {
@@ -57,7 +53,7 @@ public class RMIServer extends UnicastRemoteObject implements
 			String host = RemoteServer.getClientHost();
 			if (port != 80)
 				host += ":" + port;
-			socialHostIPs.remove(host);
+			Server.removeSocialHost(host);
 			System.out.println("Socialhost deregistered: " + host);
 			return true; // Deregistration succeeded
 		} catch (ServerNotActiveException e) {

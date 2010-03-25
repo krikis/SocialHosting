@@ -39,8 +39,8 @@
 package example.rmi_server_applet;
 
 import java.rmi.Naming;
-import java.rmi.RemoteException;
 import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class HelloImpl extends UnicastRemoteObject implements Hello {

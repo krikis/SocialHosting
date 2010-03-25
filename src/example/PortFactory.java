@@ -1,8 +1,8 @@
 package example;
 
 // Copyright (C) Bill Clagett 1997.
-import java.util.*;
-import java.net.*;
+import java.net.InetAddress;
+import java.util.Enumeration;
 
 /**
  * Generates ports from a given machine in a given range.

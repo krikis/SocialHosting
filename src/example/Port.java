@@ -2,8 +2,10 @@ package example;
 
 // Copyright (C) Bill Clagett 1997.
 
-import java.net.*;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
 
 /**
  * Representation of a specific port on a specific machine

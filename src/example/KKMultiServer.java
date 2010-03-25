@@ -31,8 +31,8 @@ package example;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 public class KKMultiServer {
 	public static void main(String[] args) throws IOException {

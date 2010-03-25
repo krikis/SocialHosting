@@ -1,19 +1,9 @@
 package applet.server;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.util.jar.JarFile;
 
 import server.http.HTTPResponse;
-
-import applet.*;
+import applet.ServerApplet;
 
 /**
  * This class implements reading a file from the file system and returning its

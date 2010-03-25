@@ -1,7 +1,6 @@
 package example;
 
 // Copyright (C) Bill Clagett 1997.
-import java.util.*;
 
 class ScannerThread extends Thread implements Runnable {
 	PortFactory _ports = null;

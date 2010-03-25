@@ -10,8 +10,10 @@
  */
 package example.rmi;
 
-import java.io.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * The ClassFileServer implements a ClassServer that reads class files from the

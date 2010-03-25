@@ -1,13 +1,20 @@
 package applet;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.rmi.Naming;
-import java.rmi.RemoteException;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Label;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JApplet;
 
-import server.rmi.RMIRemoteRegistration;
-import applet.server.*;
+import applet.server.HTTPServer;
 
 public class ServerApplet extends JApplet implements ActionListener,
 		KeyListener {

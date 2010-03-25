@@ -1,7 +1,5 @@
 package example.serverapplet;
 
-import java.io.IOException;
-
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 

@@ -31,9 +31,9 @@
 
 package example.rmi.client;
 
+import java.math.BigDecimal;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.math.BigDecimal;
 
 import example.rmi.compute.Compute;
 

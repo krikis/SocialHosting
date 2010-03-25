@@ -3,8 +3,6 @@ package server.http;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import server.Server;
-
 /**
  * This class implements a MultiThreaded HTTP Server. For every connection made
  * on the socket a new thread is fired up handling the HTTP request.

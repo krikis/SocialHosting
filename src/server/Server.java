@@ -1,7 +1,7 @@
 package server;
 
-import java.io.File;
 import java.rmi.RemoteException;
+import java.util.Vector;
 
 import server.http.HTTPServer;
 import server.rmi.RMIServer;
@@ -14,6 +14,28 @@ import server.rmi.RMIServer;
  * 
  */
 public class Server {
+
+	private static Vector<String> socialHostIPs = new Vector<String>();
+
+	/**
+	 * Adds a social host IP to the list of SocialHostIPs
+	 * 
+	 * @param socialHost
+	 *            the new social host to be added
+	 */
+	public static void addSocialHost(String socialHost) {
+		socialHostIPs.add(socialHost);
+	}
+
+	/**
+	 * Removes a social host IP from the list of SocialHostIPs
+	 * 
+	 * @param socialHost
+	 *            the social host to be removed
+	 */
+	public static void removeSocialHost(String socialHost) {
+		socialHostIPs.remove(socialHost);
+	}
 
 	/**
 	 * This main method starts up the HTTP Server and the RMI Server

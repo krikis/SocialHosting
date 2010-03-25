@@ -32,12 +32,18 @@ package example.texteditorapplet;
  */
 
 // add javaws.jar to the classpath during compilation 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import javax.jnlp.FileContents;
 import javax.jnlp.FileOpenService;
 import javax.jnlp.FileSaveService;
-import javax.jnlp.FileContents;
 import javax.jnlp.ServiceManager;
 import javax.jnlp.UnavailableServiceException;
-import java.io.*;
 
 public class FileHandler {
 

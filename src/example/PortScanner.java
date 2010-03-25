@@ -2,8 +2,8 @@ package example;
 
 // Copyright (C) Bill Clagett 1997.
 
-import java.net.*;
-import java.util.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * The Port Scanner application

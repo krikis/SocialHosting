@@ -1,10 +1,10 @@
 package applet.server;
 
-import applet.*;
-import applet.rmi.RMIRegistrar;
-
 import java.io.IOException;
 import java.net.ServerSocket;
+
+import applet.ServerApplet;
+import applet.rmi.RMIRegistrar;
 
 /**
  * This class implements a MultiThreaded HTTP Server. For every connection made
