@@ -21,6 +21,7 @@ public class ServerApplet extends JApplet implements ActionListener,
 	// Layout elements for the applet
 	private Button startButton;
 	private Button stopButton;
+	private Button clearButton;;
 	private TextField textField;
 	private int textFieldSize;
 	private TextArea textArea;
@@ -36,6 +37,7 @@ public class ServerApplet extends JApplet implements ActionListener,
 		setBackground(Color.WHITE);
 		startButton = new Button("Start Server");
 		stopButton = new Button("Stop Server");
+		clearButton = new Button("Clear Log");
 		stopButton.setEnabled(false);
 		label = new Label();
 		label.setText("Port: ");
@@ -48,6 +50,7 @@ public class ServerApplet extends JApplet implements ActionListener,
 		add(textField);
 		add(startButton);
 		add(stopButton);
+		add(clearButton);
 		add(textArea);
 
 		// Set eventhandlers
@@ -55,6 +58,7 @@ public class ServerApplet extends JApplet implements ActionListener,
 		textField.addActionListener(this);
 		startButton.addActionListener(this);
 		stopButton.addActionListener(this);
+		clearButton.addActionListener(this);
 	}
 
 	public void paint(Graphics g) {
@@ -71,6 +75,10 @@ public class ServerApplet extends JApplet implements ActionListener,
 			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
 			server.stopServer();
+		} else if (evt.getSource() == clearButton) {
+			clearButton.setEnabled(false);
+			textArea.setText("");
+			clearButton.setEnabled(true);
 		} else if (evt.getSource() == textField) {
 			if (startButton.isEnabled()) {
 				port = textField.getText();
@@ -107,13 +115,19 @@ public class ServerApplet extends JApplet implements ActionListener,
 	}
 
 	public void setServerStarted() {
+		textField.setEnabled(false);
 		startButton.setEnabled(false);
+		clearButton.setEnabled(false);
 		stopButton.setEnabled(true);
+		clearButton.setEnabled(true);
 	}
 
 	public void setServerStopped() {
+		textField.setEnabled(true);
 		startButton.setEnabled(true);
+		clearButton.setEnabled(false);
 		stopButton.setEnabled(false);
+		clearButton.setEnabled(true);
 	}
 
 	public void log(String text) {
