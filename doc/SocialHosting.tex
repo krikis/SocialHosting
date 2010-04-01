@@ -116,6 +116,14 @@ In the previous section we explained of what components the social hosting softw
 \\
 \\
 To ease the communication and cooperation between the two components running on the server-side, we choose to implement them as different threads in the same java process, sharing a portion of memory for communication.
+\begin{lstlisting}
+// Shared memory for social hosts
+private static Vector<String> socialHostIPs = new Vector<String>(); 
+HTTPServer httpServer = new HTTPServer(port); 
+httpServer.start(); // Start HTTP-server
+RMIServer rmiServer = new RMIServer();
+rmiServer.run(); // Start RMI-server
+\end{lstlisting}
 
 \subsection{Server-Side HTTP-Server}
 The server-side HTTP-server is multi-threaded. One Java thread opens a socket on a port. For every request it receives on this socket, it opens a new thread and passes the request to it. 
@@ -158,8 +166,11 @@ public boolean registerSocialHost(int port) throws RemoteException {
 public boolean deregisterSocialHost(int port) throws RemoteException {
   Server.removeSocialHost(host);
 }
-
 \end{lstlisting}
+~\\
+\\
+The components on the client-side are implemented as threads in a Java Applet running as a separate process initiated by the browser. The components share the applet interface for the invocation of their methods and for the logging of their actions. In order to give the applet enough privileges for running an HTTP-server, it was neccessary to sing it. The applet has a 
+
 \subsection{Client-Side RMI-Client}
 
 \subsection{Client-Side HTTP-Server}
