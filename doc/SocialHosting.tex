@@ -106,7 +106,7 @@ As discussed above we need a component that registers and manages all incoming o
 The social hosts we introduced earlier are actually the clients from the traditional client-server pattern. These clients can take the initiative to help the HTTP-server on the server-side out in handling HTTP-requests by registering themselves as social hosts. This registration is done by the registration client that makes a request to the registration server on the server-side, passing all information necessary for the future propagation of HTTP-requests. 
 
 \subsection{Client-Side HTTP-Server}
-This leaves us only the handling of the propagated HTTP-requests by the social hosts. It comes as no surprise that this will be done by a 
+This leaves us only the handling of the propagated HTTP-requests by the social host. It comes as no surprise that this will be done by an HTTP-server on the client-side. This server disposes over (part of) the same resources the server-side HTTP-Server uses to answer the HTTP-requests. Also it knows the origin of the requests, so it can send the answer directly to the client that made the request. This client in turn can make future requests directly to the social hosts until the social host again propagates the request to the server-side HTTP-server and we're back to start.
 
 \section{Overview of realization}
 
