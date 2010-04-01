@@ -1,3 +1,6 @@
 .classpath
 .project
 bin/*
+doc/.*
+doc/*.aux
+

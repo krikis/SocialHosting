@@ -1,0 +1,123 @@
+%
+%  Social Hosting
+%
+%  Created by Samuel Esposito and Jorn van de Beek on 2010-04-01.
+%
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage[english]{babel}
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+
+% Setup for fullpage use
+\usepackage{fullpage}
+
+% Uncomment some of the following if you use the features
+%
+% Running Headers and footers
+%\usepackage{fancyhdr}
+
+% Multipart figures
+%\usepackage{subfigure}
+
+% More symbols
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{latexsym}
+
+% Surround parts of graphics with box
+\usepackage{boxedminipage}
+
+% Package for including code in the document
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{color}
+
+\usepackage{amsmath}
+
+% If you want to generate a toc for each chapter (use with book)
+\usepackage{minitoc}
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+%\newif\ifpdf
+%\ifx\pdfoutput\undefined
+%\pdffalse % we are not running PDFLaTeX
+%\else
+%\pdfoutput=1 % we are running PDFLaTeX
+%\pdftrue
+%\fi
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+\title{NetComputing :: The SocialHosting Project}
+\author{Samuel Esposito and Jorn van de Beek}
+
+\date{2010-04-01}
+
+\definecolor{grijs}{rgb}{.92,.92,.92}
+\lstset{
+  language=java,
+  basicstyle=\footnotesize,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\footnotesize,
+  stepnumber=1,
+  numbersep=5pt,
+  backgroundcolor=\color{grijs},
+  showspaces=false,
+  showtabs=false
+  commentstyle=\itshape,
+  tabsize=8,
+  postbreak=,
+  breaklines=true
+}
+
+\begin{document}
+
+\ifpdf
+\DeclareGraphicsExtensions{.pdf, .jpg, .tif}
+\else
+\DeclareGraphicsExtensions{.eps, .jpg}
+\fi
+
+\maketitle
+
+\section{Context}
+
+\section{Problem statement}
+
+\section{Solution design}
+
+The SocialHosting project means to revolutionize the traditional client-server pattern where there is a server running on one machine (hereafter referred to as the server-side) listening for HTTP-requests and one or more clients on other machines on the same network (referred to as the client-side hereafter) doing HTTP-requests on this server. The architecture of the software build for this project consists of different components, two of them running on the server-side and two of them on the client-side. 
+
+\subsection{Server-Side HTTP-Server}
+On the server-side there will be a component listening for incoming HTTP-requests, just like in the traditional client-server pattern. This server-side HTTP-server however will not handle all HTTP-requests by itself. If it disposes over a pool of helper HTTP-servers running on other hosts on the network, it will propagate the request to the servers on these social hosts, thus balancing the load. The term we coined for this process is `social hosting', because the pool of hosts is dynamic and consists of social hosts that offer hosting services on their own initiative to the sever-side HTTP-server. To manage these offered services, we need another component, which is discussed in the next subsection.
+
+\subsection{Sever-Side Registration-Server}
+As discussed above we need a component that registers and manages all incoming offers of hosting services. This process is handled by a server-side registration server that is continuously listening for offers from social hosts that want to share the load of HTTP-requests with the server-side HTTP-server. When a request is received, it is stored in a data structure that is available to the HTTP-server running on the server-side. This HTTP-server then propagates part of its HTTP-requests to the registered social host. Now the question arises, what are the components running on the social host? This is lined out in the next two subsections.
+
+\subsection{Client-Side Registration-Client}
+The social hosts we introduced earlier are actually the clients from the traditional client-server pattern. These clients can take the initiative to help the HTTP-server on the server-side out in handling HTTP-requests by registering themselves as social hosts. This registration is done by the registration client that makes a request to the registration server on the server-side, passing all information necessary for the future propagation of HTTP-requests. 
+
+\subsection{Client-Side HTTP-Server}
+This leaves us only the handling of the propagated HTTP-requests by the social hosts. It comes as no surprise that this will be done by a 
+
+\section{Overview of realization}
+
+\section{Evaluation}
+
+
+
+
+\begin{lstlisting}
+\end{lstlisting}
+
+
+
+\end{document}
