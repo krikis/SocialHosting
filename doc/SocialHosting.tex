@@ -112,16 +112,54 @@ This leaves us only the handling of the propagated HTTP-requests by the social h
 In the next section the implementation of the different components is discussed.
 
 \section{Overview of realization}
-In the previous section we explained of what components the social hosting software consists and how they interact. In this section we will elaborate each components implementation in the Java programming language. 
+In the previous section we explained of what components the social hosting software consists and how they interact. In this section we will elaborate each components implementation in the Java programming language. The Java code displayed in the listings contain no working code but rather a summary of the subsequent commands that implement a certain process.
 \\
 \\
 To ease the communication and cooperation between the two components running on the server-side, we choose to implement them as different threads in the same java process, sharing a portion of memory for communication.
 
 \subsection{Server-Side HTTP-Server}
-
+The server-side HTTP-server is multi-threaded. One Java thread opens a socket on a port. For every request it receives on this socket, it opens a new thread and passes the request to it. 
+\begin{lstlisting}
+serverSocket = new ServerSocket(port);
+while (listening)
+  new HTTPServerThread(serverSocket.accept()).start();
+\end{lstlisting}
+The thread handling the request reads the requests header from the socket into and HTTPRequest object implementing the HTTP specification for a request. Then it tries to retreive a social host from shared memory. If it receives a host, it compiles an HTTPResponse object implementing an HTTP redirect. If there is no social host available, it will handle the request itself conform the HTTP response specification.
+\begin{lstlisting}
+HTTPRequest request = readSocket(); // read request
+HTTPResponse response = new HTTPResponse();
+String socialHost = Server.randomHost(); // acquire social host
+if (socialHost != null) { // a social host is available
+  response.setResponseCode(HTTPResponse.REDIRECT); // redirect
+  response.setContentType(HTTPResponse.HTML_MIME);
+  response.setContentLength(Integer.toString(content.length));
+  response.setLocation("http://" + socialHost + request.path());
+} else { // no social host available
+  FileHandler file = new FileHandler(request.path()); // fetch file
+  response.setResponseCode(file.serverStatus());
+  response.setContentType(file.mimeType());
+  response.setContentLength(Integer.toString(content.length));
+}
+\end{lstlisting}
 
 \subsection{Server-Side RMI-Server}
+The registration of social hosts is implemented using Java Remote Method Invocation (RMI). The server-side RMI-server runs in a Java thread. First it sets the security manager monitoring the executions that are triggered by a remote invocation and matching them with the security policy provided. Then it binds the RMI-server to the RMI Registry so that clients know where to access its services.
+\begin{lstlisting}
+System.setSecurityManager(new RMISecurityManager());
+Naming.rebind(RMIServerName, this);
+\end{lstlisting}
+The RMI-server provides two methods, one for registering a social host, and one for deregistering it. When a host is registered, the location of its hosting service is added to a list in the memory the RMI-server shares with the server-side HTTP-server. The HTTP-server can now at any time query for this social host and propagate its HTTP-requests to it through an HTTP redirect. When a social host is diregistered, it is removed from the list in shared memory and cannot be queried any more by the HTTP-server.
+\begin{lstlisting}
+// Register a social host
+public boolean registerSocialHost(int port) throws RemoteException {
+  Server.addSocialHost(host);
+}
+// Deregister social host
+public boolean deregisterSocialHost(int port) throws RemoteException {
+  Server.removeSocialHost(host);
+}
 
+\end{lstlisting}
 \subsection{Client-Side RMI-Client}
 
 \subsection{Client-Side HTTP-Server}
