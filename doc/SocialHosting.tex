@@ -55,7 +55,7 @@
 \else
 \usepackage{graphicx}
 \fi
-\title{NetComputing :: The SocialHosting Project}
+\title{NetComputing :: The Social Hosting Project}
 \author{Samuel Esposito and Jorn van de Beek}
 
 \date{2010-04-01}
@@ -94,7 +94,7 @@
 
 \section{Solution design}
 
-The social hosting project means to revolutionize the traditional client-server pattern where there is a server running on one machine (hereafter referred to as the server-side) listening for HTTP-requests and one or more clients on other machines on the same network (referred to as the client-side hereafter) doing HTTP-requests on this server. The architecture of the software build for this project consists of different components, two of them running on the server-side and two of them on the client-side. 
+The social hosting project means to replace the traditional client-server pattern in which there is a server running on one machine (hereafter referred to as the server-side) listening for HTTP-requests and one or more clients on other machines on the same network (referred to as the client-side hereafter) doing HTTP-requests on this server. The architecture of the software build for this project consists of different components, two of them running on the server-side and two of them on the client-side. 
 
 \subsection{Server-Side HTTP-Server}
 On the server-side there will be a component listening for incoming HTTP-requests, just like in the traditional client-server pattern. This server-side HTTP-server however will not handle all HTTP-requests by itself. If it disposes over a pool of helper HTTP-servers running on other hosts on the network, it will propagate the request to the servers on these social hosts, thus balancing the load. The term we coined for this process is `social hosting', because the pool of hosts is dynamic and consists of social hosts that offer hosting services on their own initiative to the sever-side HTTP-server. To manage these offered services, we need another component, which is discussed in the next subsection.
@@ -235,12 +235,9 @@ boolean success = register.deregisterSocialHost(port);
 \end{lstlisting}
 
 \section{Evaluation}
+The software created in the social hosting project could revolutionize the way popular websites are being hosted on the internet by letting frequent visitors help out in handling the huge HTTP traffic these sites get. In this approach popular sites getting many visitors also have lots of potential social hosts and eventually the amount of traffic they get from visitors and the support they receive from social hosts might equal out. No more sites going down because of popularity and no high costs to handle the huge traffic.
 
 
-
-
-\begin{lstlisting}
-\end{lstlisting}
 
 
 
