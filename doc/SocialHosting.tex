@@ -237,6 +237,12 @@ boolean success = register.deregisterSocialHost(port);
 \section{Evaluation}
 The software created in the social hosting project could revolutionize the way popular websites are being hosted on the internet by letting frequent visitors help out in handling the huge HTTP traffic these sites get. In this approach popular sites getting many visitors also have lots of potential social hosts and eventually the amount of traffic they get from visitors and the support they receive from social hosts might equal out. No more sites going down because of popularity and no high costs to handle the huge traffic.
 
+Of course our software has some limitations and a lot of aspects are to be refined. One limitation is that the software currently only works for static html pages (with no content retreived from a database). It would require further research to also include distributed databases in the setup. 
+
+Another point is the registration of social hosts. Currently a social host is registered when its HTTP-server is started up and deregistered when the server is shut down. The server being shut down because the user closes the browser window is not modeled, resulting in the server-side HTTP-server propagating requests to a server that doesn't exist any more. This problem could be solved by giving the social host a lease for a certain period of time upon registration and requiring them to reregister when the lease expires. This approach would also solve the problem of a social host serving outdated pages. This host could simply be notified to refresh its server content when it tries to reregister.
+
+An issue closely related to the registration process is the amount of social hosts that is handling requests at the same time. Currently the software propagates all HTTP-requests as soon as it has at least one social host. This will clearly not work in a real life situation. It could however easily be changed to a system that at all times tries to maintain a certain amount of social hosts (probably related to an estimate of the expected traffic). This can be achieved by always having a portion of the traffic, proportional to the odds that the required amount of social hosts will register, being handled by the server-side HTTP-server itself (note that only the server-side HTTP-server includes the social host Applet in its HTTP-responses).
+
 
 
 
