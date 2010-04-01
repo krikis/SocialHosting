@@ -132,7 +132,7 @@ serverSocket = new ServerSocket(port);
 while (listening)
   new HTTPServerThread(serverSocket.accept()).start();
 \end{lstlisting}
-The thread handling the request reads the requests header from the socket into and HTTPRequest object implementing the HTTP specification for a request. Then it tries to retreive a social host from shared memory. If it receives a host, it compiles an HTTPResponse object implementing an HTTP redirect. If there is no social host available, it will handle the request itself conform the HTTP response specification.
+The thread handling the request reads the requests header from the socket into and HTTPRequest object implementing the HTTP 1.1 specification for a request. Then it tries to retreive a social host from shared memory. If it receives a host, it compiles an HTTPResponse object implementing an HTTP redirect. If there is no social host available, it will handle the request itself conform the HTTP 1.1 response specification.
 \begin{lstlisting}
 HTTPRequest request = readSocket(); // read request
 HTTPResponse response = new HTTPResponse();
@@ -169,11 +169,70 @@ public boolean deregisterSocialHost(int port) throws RemoteException {
 \end{lstlisting}
 ~\\
 \\
-The components on the client-side are implemented as threads in a Java Applet running as a separate process initiated by the browser. The components share the applet interface for the invocation of their methods and for the logging of their actions. In order to give the applet enough privileges for running an HTTP-server, it was neccessary to sing it. The applet has a 
-
-\subsection{Client-Side RMI-Client}
+The components on the client-side are implemented as threads in a Java Applet, hosted by the HTTP-server on the server-side and running as a separate process initiated by the browser on the client-side. All data (html-files and the like) necessary for handling the HTTP-requests that are propagated from the server-side HTTP-server is contained in the Applets jarfile. The components share the applets interface for the invocation of their methods and for the logging of their actions. In order to give the applet enough privileges to run an HTTP-server itself, it was neccessary to sign it. The applet has a simple interface with a start and stop button, a text-area to log the performed actions and the HTTP-requests and responses, a clear log button and a text-field to optionally choose a port to run the HTTP-server on. 
+\begin{lstlisting}
+startButton = new Button("Start Server"); // Start button
+stopButton = new Button("Stop Server"); // Stop button
+// Text area for logging
+textArea = new TextArea("", 10, 73, TextArea.SCROLLBARS_VERTICAL_ONLY); 
+clearButton = new Button("Clear Log"); // Clear button
+textField = new TextField(5); // Text field for port number
+\end{lstlisting}
+When the start button is pressed, the HTTP-server is fired up.
+\begin{lstlisting}
+public void actionPerformed(ActionEvent evt) { // Event handler
+  if (evt.getSource() == startButton) { // The start button is pressed
+    port = textField.getText();
+    startButton.setEnabled(false);
+    stopButton.setEnabled(false);
+    server = new HTTPServer(this, port);
+    server.start(); // The HTTP-server is started
+  }
+}
+\end{lstlisting}
 
 \subsection{Client-Side HTTP-Server}
+The HTTP-server on the client-side is very similar to the one on the server-side, except in that is doesn't propagate its HTTP-requests. One thread opens a socket on a specified port. When this is successfull, it commands the RMI-client to register the host. Then for every HTTP-request it gets propagated from the server-side HTTP-server, a new thread is fired up handling the request.
+\begin{lstlisting}
+RMIRegistrar registrar = new RMIRegistrar(log);
+serverSocket = new ServerSocket(port); // Open socket for HTTP-server
+boolean success = registrar.registerSocialHost(port); // Register social host
+while (listening)
+  new HTTPServerThread(applet, serverSocket.accept()).start();
+\end{lstlisting}
+The thread handling the request then reads the HTTP-request from the socket, loads the requested files from the Applets jar, compiles an HTTP-reponse conform the HTTP 1.1 specification and writes it to the socket.
+\begin{lstlisting}
+HTTPRequest request = readSocket(); // Read request
+InputStream is = applet.getClass().getResourceAsStream(filePath); // Get file from jar
+is.read(content, offset, bufferSize); // Load file
+// Compile HTTP-response
+HTTPResponse response = new HTTPResponse(file.serverStatus(), 
+                                         file.mimeType(), 
+                                         Integer.toString(content.length));
+OutputStream out = socket.getOutputStream();
+out.write(response.header().getBytes()); // Write response
+out.write(content);
+\end{lstlisting}
+When the user clicks the `Stop Server' button on the Applet, the social host is deregistered at the RMI-server and the server socket is closed.
+\begin{lstlisting}
+boolean success = registrar.deregisterSocialHost(port); // Deregister social host
+serverSocket.close(); // Close server socket
+\end{lstlisting}
+
+\subsection{Client-Side RMI-Client}
+For making a request on the RMI-server, the RMI-client starts by looking up the RMI-server in the RMI Registry on the server-side. It receives back a RMIRemoteRegistration object representing the remote object that implements the registration methods we want to call.
+\begin{lstlisting}
+RMIRemoteRegistration register = (RMIRemoteRegistration) Naming.lookup("//" + 
+                                   applet.getCodeBase().getHost() +
+                                   "/SocialHostingRegistry");
+\end{lstlisting}
+Registering and deregistering a social host now can simply be done by invoking a method on this RMIRemoteRegistration object and passing it the right arguments.
+\begin{lstlisting}
+// Register social host
+boolean success = register.registerSocialHost(port);
+// Deregister social host
+boolean success = register.deregisterSocialHost(port);
+\end{lstlisting}
 
 \section{Evaluation}
 
