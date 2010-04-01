@@ -32,12 +32,6 @@ public class HTTPServerThread extends Thread {
 		this.socket = socket;
 	}
 
-	/*
-	 * (non-Javadoc) Reads the request from the socket, handles it, compiles a
-	 * response header and sends the response
-	 * 
-	 * @see java.lang.Thread#run()
-	 */
 	public void run() {
 		// read the request from the socket
 		HTTPRequest request = readSocket();
@@ -78,7 +72,10 @@ public class HTTPServerThread extends Thread {
 		return new HTTPRequest(message);
 	}
 
+	// Handles an HTTP request by either redirecting to a random social host
+	// from the pool or by responding it
 	private byte[] handleRequest(HTTPRequest request, HTTPResponse response) {
+		// Query random social host
 		String socialHost = Server.randomHost();
 		byte[] content = null;
 		if (socialHost != null) {
@@ -90,7 +87,8 @@ public class HTTPServerThread extends Thread {
 			body += "<title>302 Found</title>\n";
 			body += "</head><body>\n";
 			body += "<h1>Found</h1>\n";
-			body += "<p>The document has moved <a href=\"http://" + destination + "\">here</a>.</p>\n";
+			body += "<p>The document has moved <a href=\"http://" + destination
+					+ "\">here</a>.</p>\n";
 			body += "</body></html>\n";
 			body += "\n";
 			content = body.getBytes();

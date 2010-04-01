@@ -34,9 +34,11 @@ public class FileHandler {
 	 *            root
 	 */
 	public FileHandler(String path) {
+		// Set files path
 		filePath = root + path;
 		if (filePath.substring(filePath.length() - 1).equals("/"))
 			filePath += "index.html";
+		// Set files mime type
 		if (filePath.substring(filePath.length() - 5).equals(".html"))
 			mime = HTTPResponse.HTML_MIME;
 		else if (filePath.substring(filePath.length() - 4).equals(".htm"))
@@ -84,7 +86,7 @@ public class FileHandler {
 
 			byte[] bytecodes = new byte[(int) (f.length())];
 			in.readFully(bytecodes);
-			
+
 			status = HTTPResponse.OK; // set server status
 			return bytecodes;
 		} catch (FileNotFoundException e) {

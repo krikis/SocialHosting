@@ -27,12 +27,6 @@ public class HTTPServerThread extends Thread {
 		this.socket = socket;
 	}
 
-	/*
-	 * (non-Javadoc) Reads the request from the socket, opens the requested
-	 * file, compiles a response header and sends the response
-	 * 
-	 * @see java.lang.Thread#run()
-	 */
 	public void run() {
 		// read the request from the socket
 		HTTPRequest request = readSocket();

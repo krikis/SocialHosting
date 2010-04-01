@@ -5,7 +5,7 @@ import java.io.InputStream;
 import applet.ServerApplet;
 
 /**
- * This class implements reading a file from the file system and returning its
+ * This class implements reading a file from a jar file and returning its
  * contents as an array of bytes.
  * 
  * @author Samuel Esposito & Jorn van de Beek
@@ -14,17 +14,18 @@ import applet.ServerApplet;
 public class FileHandler {
 	// the path to the requested file
 	private String filePath;
-	// the server file root
+	// the file root in the jarfile
 	private static String root = "/public";
 	// the server status
 	private String status;
 	// the extension of the requested file
 	private String mime;
+	// the applet to call back to
 	private ServerApplet applet;
 
 	/**
 	 * Constructs a {@link FileHandler} object given the relative path to the
-	 * requested file in the server file root.
+	 * requested file in the server file root. Sets the files mime type.
 	 * 
 	 * @param path
 	 *            the relative path to the requested file in the server file
@@ -32,9 +33,11 @@ public class FileHandler {
 	 */
 	public FileHandler(ServerApplet log, String path) {
 		applet = log;
+		// Set files path
 		filePath = root + path;
 		if (filePath.substring(filePath.length() - 1).equals("/"))
 			filePath += "index.html";
+		// Set files mime type
 		if (filePath.substring(filePath.length() - 5).equals(".html"))
 			mime = HTTPResponse.HTML_MIME;
 		else if (filePath.substring(filePath.length() - 4).equals(".htm"))

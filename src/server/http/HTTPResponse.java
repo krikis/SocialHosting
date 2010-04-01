@@ -5,7 +5,7 @@ import java.util.TimeZone;
 
 /**
  * This class implements an HTTP response header. Given the right settings it
- * generates an HTTP/1.1 compliant response header.
+ * generates an HTTP 1.1 compliant response header.
  * 
  * @author Samuel Esposito & Jorn van de Beek
  * 

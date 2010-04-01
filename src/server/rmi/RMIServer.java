@@ -9,11 +9,23 @@ import java.rmi.server.UnicastRemoteObject;
 
 import server.Server;
 
+/**
+ * This class implements an RMI-server allowing social hosts to register and
+ * deregister.
+ * 
+ * @author Samuel Esposito & Jorn van de Beek
+ * 
+ */
 public class RMIServer extends UnicastRemoteObject implements
 		RMIRemoteRegistration, Runnable {
-
+	// The name of the RMI server
 	public static String RMIServerName = "SocialHostingRegistry";
 
+	/**
+	 * Constructor generating an {@link RMIServer} object
+	 * 
+	 * @throws RemoteException
+	 */
 	public RMIServer() throws RemoteException {
 		super();
 	}
@@ -39,6 +51,7 @@ public class RMIServer extends UnicastRemoteObject implements
 			String host = RemoteServer.getClientHost();
 			if (port != 80)
 				host += ":" + port;
+			// Register the social host
 			Server.addSocialHost(host);
 			System.out.println("Socialhost registered: " + host);
 			return true; // Registration succeeded
@@ -53,6 +66,7 @@ public class RMIServer extends UnicastRemoteObject implements
 			String host = RemoteServer.getClientHost();
 			if (port != 80)
 				host += ":" + port;
+			// Deregister the social host
 			Server.removeSocialHost(host);
 			System.out.println("Socialhost deregistered: " + host);
 			return true; // Deregistration succeeded

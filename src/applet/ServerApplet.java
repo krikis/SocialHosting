@@ -16,6 +16,13 @@ import javax.swing.JApplet;
 
 import applet.server.HTTPServer;
 
+/**
+ * This class implements a Java Applet with an interface to start, monitor and
+ * stop an internal HTTP-server.
+ * 
+ * @author Samuel Esposito & Jorn van de Beek
+ * 
+ */
 public class ServerApplet extends JApplet implements ActionListener,
 		KeyListener {
 	// Layout elements for the applet
@@ -65,20 +72,24 @@ public class ServerApplet extends JApplet implements ActionListener,
 	}
 
 	public void actionPerformed(ActionEvent evt) {
+		// The start button is pressed => starts the HTTP-server
 		if (evt.getSource() == startButton) {
 			port = textField.getText();
 			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
 			server = new HTTPServer(this, port);
 			server.start();
+			// The stop button is pressed => stops the HTTP-server
 		} else if (evt.getSource() == stopButton) {
 			startButton.setEnabled(false);
 			stopButton.setEnabled(false);
 			server.stopServer();
+			// The clear button is pressed => clears the log
 		} else if (evt.getSource() == clearButton) {
 			clearButton.setEnabled(false);
 			textArea.setText("");
 			clearButton.setEnabled(true);
+			// Return key is hit on text field => starts the HTTP-server
 		} else if (evt.getSource() == textField) {
 			if (startButton.isEnabled()) {
 				port = textField.getText();
@@ -94,6 +105,7 @@ public class ServerApplet extends JApplet implements ActionListener,
 	}
 
 	public void keyPressed(KeyEvent evt) {
+		// Validates the length and content of the text field input
 		if (evt.getSource() == textField) {
 			int key = evt.getKeyCode();
 			char character = evt.getKeyChar();
@@ -114,6 +126,9 @@ public class ServerApplet extends JApplet implements ActionListener,
 	public void keyReleased(KeyEvent evt) {
 	}
 
+	/**
+	 * This method sets the Applet interface in the Running Server mode
+	 */
 	public void setServerStarted() {
 		textField.setEnabled(false);
 		startButton.setEnabled(false);
@@ -122,6 +137,9 @@ public class ServerApplet extends JApplet implements ActionListener,
 		clearButton.setEnabled(true);
 	}
 
+	/**
+	 * This method sets the Applet interface in the Idle Server mode
+	 */
 	public void setServerStopped() {
 		textField.setEnabled(true);
 		startButton.setEnabled(true);
@@ -130,11 +148,23 @@ public class ServerApplet extends JApplet implements ActionListener,
 		clearButton.setEnabled(true);
 	}
 
+	/**
+	 * This method adds a string to the Applet log
+	 * 
+	 * @param text
+	 *            the text to add to the applet log
+	 */
 	public void log(String text) {
 		textArea.append(text + "\n");
 		repaint();
 	}
 
+	/**
+	 * This method prints an error message and stacktrace to the Applet log
+	 * 
+	 * @param e
+	 *            the exception to report
+	 */
 	public void reportError(Exception e) {
 		log(e.getMessage());
 		log(e.getClass().toString());

@@ -31,7 +31,6 @@ package example;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 public class KnockKnockProtocol {
 	private static final int WAITING = 0;
 	private static final int SENTKNOCKKNOCK = 1;
