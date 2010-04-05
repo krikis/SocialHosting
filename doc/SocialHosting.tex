@@ -90,11 +90,20 @@
 
 \section{Context}
 
+The social hosting project is a project that means to revolutionize the traditional client-server pattern that is so widely used for web-serving on the internet today. In this pattern typically different clients connect to one server and this server handles all the clients requests itself. The software developed for this project drastically changes this model by letting the clients help the server out in hosting. 
+\\
+\\
+In the next sections we discuss the problems that arise in the traditional client-server approach, how our software can solve them, the design of our solution, our implementation in the Java programming language and the benefits and shortcomings of our work. 
+
 \section{Problem statement}
+
+The problem with the traditional client-server pattern as we described it above is that one server has to handle the load of all clients requests itself. Since it is impossible to forecast the exact amount of requests that one server will receive from all clients on the internet, it is impossible wo equip a server with the right amount of resources and it often happens that a server is unable to fullfill the clients requests within an appropriate amount of time (cfr. the frontpage of popular websites), resulting in a denail of service by this server. 
+\\
+In our approach this problem is solved by letting the clients help the server out in hosting. The larger the group of clients that connect to the server and make use of its services, the bigger will be the group of social hosts (the clients that take initiative to help the server out in hosting). So when a server is under the load of many request, it can simply delegate part of this load over the social hosts without needing any extra resources and without denying services to clients.
 
 \section{Solution design}
 
-The social hosting project means to replace the traditional client-server pattern in which there is a server running on one machine (hereafter referred to as the server-side) listening for HTTP-requests and one or more clients on other machines on the same network (referred to as the client-side hereafter) doing HTTP-requests on this server. The architecture of the software build for this project consists of different components, two of them running on the server-side and two of them on the client-side. 
+As we said before the social hosting project means to replace the traditional client-server pattern in which there is a server running on one machine (hereafter referred to as the server-side) listening for HTTP-requests and one or more clients on other machines on the same network (referred to as the client-side hereafter) doing HTTP-requests on this server. The architecture of the software build for this project consists of different components, two of them running on the server-side and two of them on the client-side. 
 
 \subsection{Server-Side HTTP-Server}
 On the server-side there will be a component listening for incoming HTTP-requests, just like in the traditional client-server pattern. This server-side HTTP-server however will not handle all HTTP-requests by itself. If it disposes over a pool of helper HTTP-servers running on other hosts on the network, it will propagate the request to the servers on these social hosts, thus balancing the load. The term we coined for this process is `social hosting', because the pool of hosts is dynamic and consists of social hosts that offer hosting services on their own initiative to the sever-side HTTP-server. To manage these offered services, we need another component, which is discussed in the next subsection.
@@ -112,6 +121,7 @@ This leaves us only the handling of the propagated HTTP-requests by the social h
 In the next section the implementation of the different components is discussed.
 
 \section{Overview of realization}
+
 In the previous section we explained of what components the social hosting software consists and how they interact. In this section we will elaborate each components implementation in the Java programming language. The Java code displayed in the listings contain no working code but rather a summary of the subsequent commands that implement a certain process.
 \\
 \\
@@ -178,6 +188,9 @@ textArea = new TextArea("", 10, 73, TextArea.SCROLLBARS_VERTICAL_ONLY);
 clearButton = new Button("Clear Log"); // Clear button
 textField = new TextField(5); // Text field for port number
 \end{lstlisting}
+~\\
+\\
+\\
 When the start button is pressed, the HTTP-server is fired up.
 \begin{lstlisting}
 public void actionPerformed(ActionEvent evt) { // Event handler
@@ -235,6 +248,7 @@ boolean success = register.deregisterSocialHost(port);
 \end{lstlisting}
 
 \section{Evaluation}
+
 The software created in the social hosting project could revolutionize the way popular websites are being hosted on the internet by letting frequent visitors help out in handling the huge HTTP traffic these sites get. In this approach popular sites getting many visitors also have lots of potential social hosts and eventually the amount of traffic they get from visitors and the support they receive from social hosts might equal out. No more sites going down because of popularity and no high costs to handle the huge traffic.
 
 Of course our software has some limitations and a lot of aspects are to be refined. One limitation is that the software currently only works for static html pages (with no content retreived from a database). It would require further research to also include distributed databases in the setup. 
